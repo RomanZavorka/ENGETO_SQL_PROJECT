@@ -1,0 +1,5 @@
+# SQL PROJEKT
+
+## ZADÁNÍ
+
+## ANALÝZA
