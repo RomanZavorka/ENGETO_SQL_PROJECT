@@ -35,7 +35,7 @@ Poznamka: Je možno rovnìž pøidat podmínku 'AND cp.value IS NOT NULL', nicménì v 
 
 V tuto chvíli jsou zobrazovány veškeré sloupce a záznamy jsou omezeny pouze na záznamy o výši mezd v jednotlivých letech v jednotlivých kvartálech v jednotlivých odvìtvích. Data v tomto rozložení jsou však stále velmi obsáhlá a tak je mùžeme výraznì zmenšit zprùmìrováním fcí avg() a adekvátním seskupením klauzulí GROUP BY. V našem pøípadì byly záznamy seskupeny podle jednotlivých let mìøení a druhotnì podle prùmyslového odvìtví:
 
-	GROUP BY cp.payroll_year, cpib.name
+'GROUP BY cp.payroll_year, cpib.name'
 
 Toto zprùmìrování a seskupení veškerých záznamù nám kromì zmenšení tabulky také významì pomùže i pøi øešení následujících úloh, protože takto nastavená data jsou snadnìji interpretována 
 a v nìkterých pøípadech už ani není nutné použít fci avg ().
