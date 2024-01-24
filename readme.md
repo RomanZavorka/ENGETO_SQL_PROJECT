@@ -1,19 +1,162 @@
 # SQL PROJEKT
 
 ## ZADÁNÍ
-zadání projektu
+"Na vašem analytickém oddìlení nezávislé spoleènosti, která se zabývá životní úrovní obèanù, jste se dohodli, že se pokusíte odpovìdìt na pár definovaných výzkumných otázek, které adresují dostupnost základních potravin široké veøejnosti. Kolegové již vydefinovali základní otázky, na které se pokusí odpovìdìt a poskytnout tuto informaci tiskovému oddìlení. Toto oddìlení bude výsledky prezentovat na následující konferenci zamìøené na tuto oblast.
+
+Potøebují k tomu od vás pøipravit robustní datové podklady, ve kterých bude možné vidìt porovnání dostupnosti potravin na základì prùmìrných pøíjmù za urèité èasové období.
+
+Jako dodateèný materiál pøipravte i tabulku s HDP, GINI koeficientem a populací dalších evropských státù ve stejném období, jako primární pøehled pro ÈR.
+
+Datové sady, které je možné použít pro získání vhodného datového podkladu
+Primární tabulky:
+
+czechia_payroll – Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
+czechia_payroll_calculation – Èíselník kalkulací v tabulce mezd.
+czechia_payroll_industry_branch – Èíselník odvìtví v tabulce mezd.
+czechia_payroll_unit – Èíselník jednotek hodnot v tabulce mezd.
+czechia_payroll_value_type – Èíselník typù hodnot v tabulce mezd.
+czechia_price – Informace o cenách vybraných potravin za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
+czechia_price_category – Èíselník kategorií potravin, které se vyskytují v našem pøehledu.
+Èíselníky sdílených informací o ÈR:
+
+czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
+czechia_district – Èíselník okresù Èeské republiky dle normy LAU.
+Dodateèné tabulky:
+
+countries - Všemožné informace o zemích na svìtì, napøíklad hlavní mìsto, mìna, národní jídlo nebo prùmìrná výška populace.
+economies - HDP, GINI, daòová zátìž, atd. pro daný stát a rok.
+Výzkumné otázky
+Rostou v prùbìhu let mzdy ve všech odvìtvích, nebo v nìkterých klesají?
+Kolik je možné si koupit litrù mléka a kilogramù chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
+Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroèní nárùst)?
+Existuje rok, ve kterém byl meziroèní nárùst cen potravin výraznì vyšší než rùst mezd (vìtší než 10 %)?
+Má výška HDP vliv na zmìny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výraznìji v jednom roce, projeví se to na cenách potravin èi mzdách ve stejném nebo násdujícím roce výraznìjším rùstem?
+Výstup projektu
+Pomozte kolegùm s daným úkolem. Výstupem by mìly být dvì tabulky v databázi, ze kterých se požadovaná data dají získat. Tabulky pojmenujte t_{jmeno}_{prijmeni}_project_SQL_primary_final (pro data mezd a cen potravin za Èeskou republiku sjednocených na totožné porovnatelné období – spoleèné roky) a t_{jmeno}_{prijmeni}_project_SQL_secondary_final (pro dodateèná data o dalších evropských státech).
+
+Dále pøipravte sadu SQL, které z vámi pøipravených tabulek získají datový podklad k odpovìzení na vytyèené výzkumné otázky. Pozor, otázky/hypotézy mohou vaše výstupy podporovat i vyvracet! Záleží na tom, co øíkají data.
+
+Na svém GitHub úètu vytvoøte repozitáø (mùže být soukromý), kam uložíte všechny informace k projektu – hlavnì SQL skript generující výslednou tabulku, popis mezivýsledkù (prùvodní listinu) a informace o výstupních datech (napøíklad kde chybí hodnoty apod.).
+
+Neupravujte data v primárních tabulkách! Pokud bude potøeba transformovat hodnoty, dìlejte tak až v tabulkách nebo pohledech, které si novì vytváøíte."
+
 ## ANALÝZA
+### PØEHLED ZDROJOVÝCH TABULEK
+Pro tvorbu primární tabulky byly k dispozici dvì kmenové tabulky, na než se také vážou pomocné tabulky - èíselníky.
+
+czechia_payroll - Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR. Tabulka sestává z 8 sloupcù:
+* id
+* value
+* value_type_code - kód typu hodnoty
+* unit_code - kód jednotky, ve které jsou hodnoty vyjádøeny
+* calculation_code - kód zpùsobu výpoètu
+* industry_branch_code - kód prùmyslového odvìtví
+* payroll_year
+* payroll_quarter
+
+K této tabulce se váže nìkolik doplòujících tabulek:
+* Czechia_payroll_calculation - èíselník kalkulací v tabulce mezd
+* czechia_payroll_industry_branch – Èíselník odvìtví v tabulce mezd.
+* czechia_payroll_unit – Èíselník jednotek hodnot v tabulce mezd.
+* czechia_payroll_value_type – Èíselník typù hodnot v tabulce mezd.
+
+czechia_price -  Informace o cenách vybraných potravin za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR. Tato tabulka sestává z 6 sloupcù:
+* id
+* value - prùmìrné ceny pro jednotlivé kategorie potravin
+* category_code - kód kategorie potravin
+* date_from
+* date_to
+* region_code - kód regionu (kraje)
+
+K této tabulce se vážou také následující podpùrné tabulka:
+* czechia_price_category – Èíselník kategorií potravin, které se vyskytují v našem pøehledu
+* czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
+
+V tabulce czechia_payroll mùžeme vidìt, že se zde nachází velké množství sloupcù, ve kterých jsou jen pouhé kódy, které nám nic neøíkají - tyto kódy jsou popsány v navazujících èíselnících. 
+
+Nìkteré èíselníky byly použity jednou: *czechia_payroll_value_type - nastavení value_type_code, aby byly zobrazeny jen výše mezd (5958)
+* czechia_payroll_unit - zjištìní, v jakých jendotkách jsou hodnoty ve sloupci 'value' vyjádøeny.
+
+Dvì tabulky byly pøipojeny trvale: 
+* czechia_price_category - identifikace kategorií potravin a a jejich jednotek množství
+*czechia_payroll_industry_branch - identifikace prùmyslového odvìtví.
+
+nìkteré vùbec: 
+* czechia_payroll_calculation - zpùsob kalkulace hodnot pro nás není dùležitý
+
+### PROBLEMATIKA TVORBY PRIMÁRNÍ TABULKY
+
+Podstatou tvorby primární tabulky je slouèení tabulek czechia_payroll a czechia_price (a pøípadnì jejich návazné tabulky - èíselníky) do jedné tabulky skrze stejné porovnatelné období, tedy spoleèné roky, ze které bude možné èerpat data ohlednì mezd a cen potravin za Èeskou republiku pro plnìní následujících úloh - vìdeckých otázek.
+
+Obì dvì tabulky obsahují velké množství informací, které jsou dále popsány v navazujících podpùrných tabulkách - èíselnících. Prvním krokem tedy bylo se s tabulkami seznámit a zjistit co obsahují a dle zadání zvážit, která data jsou pro nás dùležitá a která ne. V obou dabulkách mùžeme vidìt, že se zde nachází nìkolik sloupcù, ve kterých jsou jen pouhé kódy, které nám nic neøíkají - tyto kódy jsou popsány v navazujících èíselnících. 
+
+Nìkteré èíselníky byly použity jednou: * czechia_payroll_value_type - 'nastavení value_type_code', aby byly zobrazeny jen výše mezd (kód 5958)
+* czechia_payroll_unit - zjištìní, v jakých jednotkách jsou hodnoty ve sloupci 'value' vyjádøeny (pro mzdy to jsou èeské koruny).
+
+Dvì tabulky byly pøipojeny trvale: 
+* czechia_price_category - identifikace kategorií potravin a jejich jednotek množství
+*czechia_payroll_industry_branch - identifikace prùmyslového odvìtví.
+
+nìkteré vùbec: 
+* czechia_payroll_calculation - zpùsob kalkulace hodnot pro nás není dùležitý
+* czechia_region – data byla zpracovávána celkovì za ÈR; identifikace krajù pro nás tedy nemìla význam.
+
+Po seznámení se s obsahem tabulek bylo v rámci tvorby prímarní tabulky nutno zdolat nìkolik pøekážek. Jednou z pøekážek byl obsah nepotøebných záznamù a hodnot. Tabulka czechia_payroll obsahuje kromì záznamù ohlednì hrubých mezd také záznamy o prùmìrných poètech zamìstnancù v odvìtvích - takové hodnoty nás zde nezajímají a tak byly vyøazeny. Zárovneò byly vylouèeny hodnoty o mzdách, u nichž nebyla uvedena informace o odvìtví, což považujeme za zásadní. 'NULL' hodnoty co se týèe mezd pozorovány nebyly.
+
+V tabulce czechia price byly pozorovány 'NULL' hodnoty pouze v sloupci region_code, protože však data v tomto projektu jsou zpracovávána celkovì pro ÈR, nepøedstavují tyto chybjející informace o regionu problém. V tabulce czechia_price žádné hodnoty vyøazeny nebyly.
+
+Dalším problémem byla obsáhlost tabulek, zejména 'czechia_price', která má celkem 108,249 záznamù. 'czechia_payroll' mìla po odstranìní nepotøebných záznamù 3,268 z pùvodních 6,880. Záznamy obou tabulek proto byly zprùmìrovány a seskupeny (podle roku a odvìtví/kategorie potravin), èímž se jejich rozsah výraznì zmenšil: 'czechia_payroll' na 418 a czechia_price na 342. S takto zmenšenými rozsahy budou veškeré operace s tìmito tabulkami výraznì rychlejší a jejich data se dají snáze èíst. 
+
+Další pøekážkou bylo také nalezení zpùsobu, jak data dvou tabulek v budoucnu párovat. Tabulky jsou na sobe v podstatì nezávislé, a jediným spoleèným rysem byl údaj o èase mìøení - rok. V tabulce czechia_payroll tento údaj obsahoval sloupec 'payroll_year.' V tabulce czechia_price to byly sloupce 'date_to' a 'date_from', které obsahovaly celé datum, kde rok by v obou sloupcích vždy shodný, a tak mohl být použit kterýkoliv z nich.
+
+Dále je nutno postøehnout, že tabulky se nemají shodný rozsah let, pro nìž dané záznamy platí: tabulka czechia_payroll obsahuje záznamy v letech 2000–2021, zatímco tabulka czechia_price pouze v letech 2006–2018. Tabulky lze tedy vzájemnì srovnávat pouze mezi lety 2006 a 2018.
+
+Kromì omezování záznamù (øádkù ) bylo naší snahou omezovat rovnìž poèty sloupcù, kde v tabulce czechia_payroll byly nakonec vybrány pouze tøi sloupce obsahující následující informaci:
+* údaj o roku - payroll_year
+* názvu odvìtví - cpib.name (z èíselníku czechia_payroll_industry_branch)
+* údaj o výši prùmìrné hrubé mzdy - value (posléze zprùmìrován a zaokrouhlen)
+
+V tabulce czechia_price:
+* údaj o roku -(year(date_from)) 
+* údáj o výši ceny potravin - value (posléze zprùmìrován a zaokrouhlen). Poznámka: není jasnì definováno, v jakých jednotkách jsou zde ceny potravin uvedeny - pøedpokládáme, že jsou v èeských korunách.
+* názvu kategorie potravin (z èíselníku czechia_price_category) 
+* udaj o množství pro které ceny platí (z èíselníku czechia_price_category) - vznikl spojením sloupcù 'price_value' a 'price_unit' skrze concat().
+
+Vybrané sloupce byly posléze v pøípadì potøeby pøejmenovány, aby aby se pøedešlo problému duplicitních názvù a aby bylo jasné, co obsahují.
+
+Protože data dvou tabulek na sebe kromì spoleèných let nemají pøímou návaznost, zpùsob propojení skrze klauzuli 'JOIN' se nejevil jako vhodný, protože všechny záznamy z jedné tabulky by se navázaly na záznamy se shodným rokem v tabulce druhé, tudíž by došlo ke zbyteènému nadbytí (duplicitám) záznamù, èímž by byla zmaøena naše snaha o zredukování dat na absolutní minimum.
+
+Propojení dvou zmínìných tabulek bylo tudíž provedeno skrze klauzuli 'UNION.' Tímto zpùsobem jsou tabulky spojeny nikoliv z boku ale zespoda, èímž nedocházelo k duplicitám záznamù. 
+
+Jelikož skrze 'UNION' lze spojit pouze záznamy se stejnými poèty sloupcù, bylo nutné poèty sloupcù vyrovnat. V našem pøípadì toho bylo dosaženo vložením pomocných 'NULL' sloupcù obsahujících prázdné hodnoty. 
+
+Tyto 'NULL' sloupce byly do obou tabulek vloženy tak, aby záznamy obou tabulek mìly své vlastní separátní sloupce (blíže popsáno v 'postupu').  
+
+### ROZBOR VÝSLEDNÉ PRIMÁRNÍ TABULKY
+
+Výsledkem našeho úsilí je tabulka s rozsahem 760 záznamù a celkem 7 slupci:
+* payroll_year - informace o roku, pro který záznamy o mzdách platí
+* industry_branch_name - název prùmyslového odvìtví
+* mean_salary_czk - prùmìrná hrubá mzda podle roku a odvìtví
+* price_year - informace o roku, pro který záznamy o cenách potravin platí 
+* foodstuff_name - název kategorie potravin
+* mean_price_czk - prùmìrná cena podle roku a kategorie potravin 
+* price_unit - jednotka množství, na které se zázanmy o cenách potravin vztahují.
+
+Záznamy tabulky nám prozrazují prùmìrné hrubé mzdy podle roku a prùmyslového odvìtví v letech 2000–2021 a také prùmìrné ceny podle roku a kategorie potravin.
+
+Protože tabulky byly propojeny skrze 'UNION' a do separátních sloupcù, mùžeme vidìt, že tabulka obsahuje mnoho prázdných záznamù, tedy když se díváme na záznamy z tabulky 'czechia_payroll', záznamy z tabulky 'czechia_price' jsou prázdné a naopak.
+
+ 
+
 
 ## POSTUP
 ### VYTVOØENÍ PRIMÁRNÍ TABULKY
 #### ÚVOD
+
 Primární tabulka t_roman_zavorka_project_sql_primary_final obsahující data z obou tabulek byla vytvoøena skrze klauzuli 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' kde 'CREATE' tabulku vytváøí a v pøípadì, že tabulka s tímto názvem již existuje, aktivuje se pøíkaz 'REPLACE,' který stávající tabulku nahradí novou, což v pøípadì potøeby umožòuje tabulku snadno upravovat. Tabulka byla v našem pøípadì vytvoøena skrze SQL dotazu za klauzulí 'AS.'
  
-Podstatou výše zmínìné tabulky je slouèení tabulek czechia_payroll a czechia_price s jejich návaznými tabulkami (èíselníky) do jedné tabulky skrze stejné porovnatelné období, tedy spoleèné roky, ze které bude možné èerpat data ohlednì mezd a cen potravin za Èeskou republiku pro plnìní následujících úloh - vìdeckých otázek.
-#### ZPÙSOB SPOJENÍ TABULEK
-Protože data dvou tabulek na sebe kromì spoleèných let nemají pøímou návaznost, zpùsob propojení skrze klauzuli 'JOIN' není vhodné, protože všechny záznamy z jedné tabulky by se navázaly na záznamy se shodným rok v tabulce druhé, èímž by došlo ke zbyteènému nadbytí (duplicitám) záznamù, tudíž bylo slouèení tabulek provedeno skrze klauzuli 'UNION' (možno provést též pøes 'UNION ALL', nicménì výsledek zde bude stejný).
-
-Vytvoøení výsledné tabulky bylo provedeno skrze slouèení dvou samostatných SQL dotazù zužující data na potøebné minimum; jeden pro tabulku czechia_payroll a druhý pro tabulku czechia_price.
+Jak bylo již popsáno výše, vytvoøení výsledné tabulky bylo provedeno skrze slouèení dvou samostatných SQL dotazù klauzulí 'UNION.'; jeden pro tabulku czechia_payroll a druhý pro tabulku czechia_price.
 #### DOTAZ PRO TABULKU czechia_payroll
 
 Do klauzule 'FROM' byl vložen název pøíslušné tabulky czechia_payroll (cp), ze které byla data nahrávána.
@@ -73,7 +216,7 @@ Kromì sloupce 'region_code' jsou záznamy kompletní a neobsahují 'NULL' hodnoty. 
 Následnì byly v klauzuli 'SELECT' byly vybrány potøebné sloupce.
 Jako první potøebujeme o roku, do kterého jednotlivé záznamy patøí. V tabulce jsou k dispozici dva sloupce udávájící tuto informaci: 'date_from' a 'date_to.' Záznamy jsou ve formátu, kde je uvedeno celé datum a èas. Protože pro propojení s první tabulkou potøebujeme znát pouze infomaci o roku, použijeme fci year(). 
 
-Skrze dotaz: 'SELECT * FROM czechia_price cp WHERE year(date_from) != year(date_to)' zjístíme, že oba datmu jsou vždy ve stejném roce, a tak je možno použít kterýkoliv z tìchto dvou sloupcù; v našem pøípadì byl použit sloupec date_from: 
+Skrze dotaz: 'SELECT * FROM czechia_price cp WHERE year(date_from) != year(date_to)' zjístíme, že oba datumy jsou vždy ve stejném roce, a tak je možno použít kterýkoliv z tìchto dvou sloupcù; v našem pøípadì byl použit sloupec date_from: 
 
 * year(date_from) AS price_year
 
@@ -81,11 +224,9 @@ Skrze dotaz: 'SELECT * FROM czechia_price cp WHERE year(date_from) != year(date_
 
 * Obdobným zpùsobem provedeme zprùmìrování a zaokrouhlení hodnot v sloupci cpr.value jako v tabulce czechia_payroll: round(avg(cpr.value),2) AS mean_price_czk.
 
-* Posledním sloupcem této tabulky vznikl slouèením sloupcù 'cpc.price_value' a 'cpc.price_unit' z pøipojené tabulky czechia_price_category (cpc) funkcí concat(): concat(cpc.price_value," ",cpc.price_unit) AS price_unit.
-		Tento sloupec udává množství, ke kterému se vážou ceny jednotlivých kategorií potravin (napø. cena za 0,5 l piva).
+* Posledním sloupcem této tabulky vznikl slouèením sloupcù 'cpc.price_value' a 'cpc.price_unit' z pøipojené tabulky czechia_price_category (cpc) funkcí concat(): concat(cpc.price_value," ",cpc.price_unit) AS price_unit. Tento sloupec udává množství, ke kterému se vážou ceny jednotlivých kategorií potravin (napø. cena za 0,5 l piva).
 
-Obdobnì jako v tabulce czechia_payroll je i zde velmi mnoho záznamù, a tak byly i zde byly hodnoty o cenách potravin zprùmìrovány a seskupeny skrze klauzuli 'GROUP BY' podle roku a
-kategorie potravin: 
+Obdobnì jako v tabulce czechia_payroll je i zde velmi mnoho záznamù, a tak byly i zde byly hodnoty o cenách potravin zprùmìrovány a seskupeny skrze klauzuli 'GROUP BY' podle roku a kategorie potravin: 
 
 'GROUP BY price_year, foodstuff_name'
 
@@ -120,7 +261,8 @@ year(cpr.date_from) AS price_year,
 cpc.name AS foodstuff_name, 
 round(avg(cpr.value),2) AS mean_price_czk, concat(cpc.price_value," ",cpc.price_unit) AS price_unit
 
-Tímto byl vyøešen problém s nestejným poètem sloupcù a zároveò došlo k separaci sloupcù obou tabulek. Poté již bylo potøeba zabalit dotazy dvou tabulek do závorek a spojit klauzulí 'UNION,' èímž je SQL dotaz pro zobrazení všech potøebných položek obou tabulek dokonèen.
+Tímto byl vyøešen problém s nestejným poètem sloupcù a zároveò došlo k separaci sloupcù obou tabulek. Poté již bylo potøeba zabalit dotazy dvou tabulek do závorek a spojit klauzulí 'UNION,' èímž je SQL dotaz pro zobrazení všech potøebných položek obou tabulek dokonèen (možno provést též pøes 'UNION ALL', nicménì výsledek zde bude stejný).
+
 
 Nyní, jak bylo již popsáno na zaèátku, staèí nad dosavadní dotaz pøidat klauzuli 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' která dá pokyn k vytvoøení èi nahrazení tabulky 't_roman_zavorka_project_sql_primary_final'
 ### VYTVOØENÍ SEKUNDÁRNÍ TABULKY
@@ -220,17 +362,21 @@ Dalším krokem bylo získat potøebné prùmìrné ceny potravin podle roku a kategorie
 
 Protože záznamy ohlednì potravin bylo potøeba zobrazit vedle záznamù ohlednì mezd podle spoleèných let mìøení (což stávající tabulka pf neumožòuje), byla pøipojena duplicitní tabulka (pf2).
 
-Záznamy v pøipojené tabulce byly skrze vnoøený dotaz omezeny rok, prùmìrné ceny potravin, název kategorie potravin a jednotky množství:
+Zobrazení sloupcù v pøipojené tabulce bylo skrze vnoøený dotaz omezeno rok, prùmìrné ceny potravin, název kategorie potravin a jednotky množství:
 * pf.price_year
 * pf.mean_price_czk
 * pf.foodstuff_name
 * pf.price_unit
 
-Záznamy ve vnoøeném dotazu zároveò omezíme na první a srovnatelné období a na vybrané kategorie potravin: 'chléb' a 'mléko:'
+V úloze je dáno, že výpoèty mají být provedeny pro první a poslední srovnatelné období a pouze pro kategorie potravin 'mléko' a 'chléb.'
+
+Poznámka: tabulka czechia_payroll obsahuje záznamy z let 2000–2021 a tabulka czechia_price 2006–2018, prvním srovnatelným obdobím je tedy rok 2006 a posledním je rok 2018.
+
+Záznamy ve vnoøeném dotazu byly tedy skrze klauzuli 'WHERE' omezeny následovnì:
 
 "WHERE pf.price_year IN (2006, 2018) AND (pf.foodstuff_name LIKE '%mléko%' OR pf.foodstuff_name LIKE '%chléb%'"
 
-Poznámka: tabulka czechia_payroll obsahuje záznamy z let 2000–2021 a tabulka czechia_price 2006–2018, prvním srovnatelným obdobím je tedy rok 2006 a posledním je rok 2018.
+Tyto podmínky zajistí, že se zobrazí pouze záznamy v letech 2006 a 2018 a zárovìò zobrazí pouze kategorie potravin, které mají ve svém názvu 'mléko' nebo 'chléb.'
 
 Vnoøený dotaz je tímto dokonèen a jeho spuštìním se nám zobrazí tabulka se 4 sloupci a 4 záznamy: prùmìrné ceny pro 1 kg chleba a 1 l mléka v letech 2006 a 2018.
 
@@ -238,14 +384,135 @@ Tabulka byla následnì propojena skrze spoleèné roky:
 
 'ON pf.payroll = pf2.price_year'
 
-Pro propojení byla zvolena klauzule 'INNER JOIN' aby veškeré záznamy byly omezeny jen na vybrané roky a vybrané potraviny v pøipojené pomocné tabulce.
+Pro propojení byla zvolena klauzule 'INNER JOIN' aby veškeré záznamy byly omezeny jen na vybrané roky a vybrané potraviny v pøipojené pomocné tabulce pf2.
 
-Poznámka:  
+Poznámka: omezením záznamù v pøipojené tabulce pf2 skrze vnoøený dotaz se vyraznì urychluje spuštìní celého SQL dotazu.
 
-#### VÝPOÈET VÝŠE MOŽNÉHO NÁKUPU POTRAVIN
+Do vnejší 'SELECT' klauzule byly následnì pøidány sloupce ohlednì cen potravin a výpoèet potenciálního množství vybraných potravin, které by bylo možné za prùmìrné mzdy nakoupit. Uspoøádání sloupcù
+nyní vypadalo následovnì:
+* pf.payroll_year
+* round(avg(pf.mean_salary_czk),2) AS total_mean_salary_czk
+* pf.foodstuff_name
+* pf.mean_price_czk
+* round(avg(pf.mean_salary_czk)) / pf2.mean_price_czk,2) AS possible_purchase_amount
+* pf.price_unit
+
+Poznámka: hodnoty ohlednì mezd jsou zde uvedeny jako hrubé mzdy, pro zjednodušení výpoètu s nimi budeme zde nakládat jako s èistými mzdami.
+
+Protože do 'SELECT' klauzule byly pøidány sloupce týkající se cen potravin, bylo nutné rovnìž provést úpravu v 'GROUP BY' klauzuli pøidáním sloupce 'pf2.foodstuff_name', aby se záznamy seskupily prvotnì podle roku a druhotnì podle kategorie potravin:
+
+'GROUP BY pf.payroll_year, pf2.foodstuff_name'
+
+Koneèný výstup byl následnì seøazen sestupnì podle roku a vzestupnì podle názvu kategorie potravin:
+
+'ORDER BY pf.payroll_year DESC, pf2.foodstuff_name ASC'
+
+Tímto je SQL dotaz pro otázku è. 2 dokonèen.
+
+### ÚLOHA È. 3: 
+#### VÝPOÈET ROÈNÍCH ROZDÍLÙ CEN POTRAVIN
+Aby bylo možné zjistit, jak se ceny potravin mezi lety vyvíjely, byly z prùmìrných roèních cen jednotlivých potravin vypoèteny roèní rozdíly; postup v tomto pøípadì byl podobný jako v úloze è. 1.
+
+Z primární tabulky 'pf' byly skrze 'SELECT' klauzuli vybrány sloupce uvádìjící informaci ohlednì roku, názvu kategorie potravin a prùmìrné ceny:
+* pf.price_year
+* pf.foodstuff_name
+* pf.mean_price_czk
+Pro výpoèet meziroèních rozílù byla následnì pøipojena duplicitní tabulka 'pf2', kde skrze vnoøený dotaz ('SELECT') byly vybrány stejné sloupce jak v naší hlavní tabulce 'pf.' a zároveò byly vyøazeny prázné záznamy, které v primární tabulce vznikly pøi její tvorbì skrze slouèení tabulek czechia_payroll a czechia_ price pøes 'UNION.':
+
+'WHERE mean_price_czk IS NOT NULL'
+
+Tabulky byly propojeny skrze shodné kategorie potravin a roky, kde v pøipojené tabulce byl pøipoèten rok navíc, èímž se záznamy v ní posunuly o rok zpìt:
+
+'ON pf.price_year = pf2.price_year +1 AND pf.foodstuff_name = pf2.foodstuff_name
+
+Tabulka byla pøipojena skrze 'INNER JOIN', aby z ní byly odstranìny nežádoucí záznamy S NULL hodnotami plynoucích z posunu záznamù - záznamy pøed rokem 2006 nemáme k dispozici. Zároveò tím  byly odstranìny prázdné hodnoty vzniklé pøi vzniku tabulky (pf) tabulce spojením cp a cpr skrze 'UNION').
+
+Po úspìšném pøipojení tabulky pf2 byly ve vnejší 'SELECT' klauzuli provedeny následující zmìny v uspoøádání zobrazovaných sloupcù:
+* concat(pf.price_year," – ", pf2.price_year) AS time_period
+* pf.foodstuff_name,
+* pf.mean_price_czk AS latter_mean_price_czk
+* pf2.mean_price_czk AS former_mean_price_czk
+* round((pf.mean_price_czk - pf2.mean_price_czk) / pf2.mean_price_czk*100,2) AS percentage_price_difference
+
+Výše uvedený výbìr nám nyní zobrazuje prùmìry a meziroèní rozdíly prùmìrù cen potravin mezi lety. Záznamy byly posléze primárnì seøazeny sestupnì podle roku mìøení a poté vzestupnì podle názvu potravin v první tabulce:
+
+'ORDER BY pf.price_year DESC, pf.foodstuff_name ASC'
+
+Jelikož hodnoty týkající se cen potravin byly zprùmìrovány a seskupeny podle roku a kategorie potravin již pøi tvorbì primární tabulky 'pf' nebylo v tomto bodì nutné nastavovat klauzuli 'GROUP BY' (výsledky se zobrazí stejnì). 
+
+Protože zobrazovaných záznamù je v tomto bodì velmi mnoho (celkem 315 øádkù), není snadné tato data interpretovat a udìlat z nich závìr o rychlosti zdražování èi slevòování jednotlivých potravin; z meziroèních rozdílù byl tedy pro jednotlivé potraviny vypoèten prùmìr.
+
+Abychom mohli tento prùmìrný procentuální rozdíl vypoèítat, byl celý dosavadní dotaz vnoøen do nové klauzule 'FROM' (alias pf3) a skrze novou vnìjší klauzuli 'SELECT' byl proveden výpoèet prùmìrného procentuálního rozídlu pro jednotlivé potraviny:
+* pf3.foodstuff_name
+* round(avg(pf3.percentage_price_difference,2) AS mean_percentage_price_difference
+
+Aby se vypoèty sekskupily podle jednotlivých potravin, bylo nutné v našem novém vnìjším dotazu nastavit klauzuli 'GROUP BY':
+
+'GROUP BY pf3.foodstuff_name'
+
+Koneèný výstup jsme rovnìž seøadili vzestupnì podle novì vypoèteného prùmìru a názvu potravin:
+
+'ORDER BY mean_percentage_price_difference ASC, foodstuff_name ASC'
+
+Tímto byla tvorba dotazu pro úlohu è. 3 dokonèena.
+
+Výsledkem je výpis jednotlivých potravin seøazených primárnì podle prùmìrného procentuálního rozdílu a sekundárnì dle názvu potravin.
+### ÚLOHA È. 4: 
+####PØIPOJENÍ POMOCNÝCH TABULEK
+Protože v této úloze je požadavkem zjistit, zda existuje, ve kterém byl meziroèní nárùst cen potravin výraznì vyšší než rùst mezd (vetší než 10%), bylo potøeba vypoèítat meziroèní rozdíly celkových roèních prùmìrù pro mzdy a ceny potravin. Abychom toho dosáhli, byly pøipojeny pomocné duplicitní tabulky 'pf2' a 'pf3.'
+
+V první ze dvou tabulek 'pf2' poslouží k výpoètu meziroèního rozdílu ve mzdách, a tak byly skrze vnoøený dotaz vybrány sloupce s informací o roku a výpoètem prùmìrné výši mzdy:
+* payroll_year
+* avg(mean_salary_czk) AS former_mean_salary_czk (bude zaokrouhleno v pozdejších výpoètech)
+
+Výsledky v tabulce byly rovnìž zbaveny prázdných záznamù a seskupeny podle jednotlivých let:
+
+'WHERE mean_salary_czk IS NOT NULL'
+'GROUP BY payroll_year'
+
+V tomto bodì vnoøený dotaz naší tabulky zobrazuje celkové prùmìrné výše mezd pro jednotlivé roky. Tabulka byla následnì skrze 'INNER JOIN' pøipojena podle spoleèných let, kde k pf2 byl pøièten rok navíc, aby se její záznamy posunuly o rok zpìt:
+
+'ON pf.payroll_year = pf2.payroll_year +1' 
+
+Skrze toto spojení byly Meziroèní rozdíly ve mzdách vypoèteny ve vnìjší 'SELECT' klauzuli (bude ukázáno pozdìji).
+
+Druhá pomocná tabulka 'pf3' poslouží k výpoètu meziroèního rozdílu v cenách potravin. Protože rozdíly ve mzdách byly vypoèteny skrze tabulky pf1 a pf2, není obdobný zpùsob výpoètu vhodný, protože by z podstaty 'UNION' propojení tabulek 'cp' a 'cpr' nastávaly problémy se zobrazením výsledkù ohlednì rozdílù cen potravin. Z tohoto dùvodu byly v této tabulce pøipraveny následující sloupce pro pozdìjší výpoèet meziroèního rozdílu v cenách potravin:
+* pf31.price_year
+* avg(pf31.mean_price_czk) AS latter_mean_price_czk
+* avg(pf32.mean_price_czk) AS former_mean_price_czk
+
+Abychom mohli tyto sloupce zobrazit, byla ve vnoøeném dotazu pøipojena další pomocná tabulka: pf32 (pf31 je první), jejíž záznamy byly posunuty o rok zpìt:
+* price_year
+* mean_price_czk
+
+'ON pf31.price_year = pf32.price_year +1
+
+Tyto tabulky byly propojeny skrze 'INNER JOIN,' èímž byly odstranìny nežádoucí 'NULL' záznamy. Hodnoty byly nakonec seskupeny podle roku:
+
+'GROUP BY pf31.price_year'
+
+Vnoøený dotaz v tabulce pf3 ji nyní hotov a zobrazuje nám dva sloupce s nezaokrouhlenými prùmìrnými cenami potravin v jednotlivých letech, pøièemž jeden ze sploupcù má prùmìry posunuty o rok zpìt, abychom mohli následnì vypoèítat meziroèní rozdíly.
+
+Pomocná tabulka pf3 byla poté skrze 'INNER JOIN' pøipojena k tabulce pf podle spoleèných let:
+
+'ON pf.payroll_year = pf3.price_year'
+
+'INNER JOIN' zde zajistí, že koneèné výstupy budou omezena jen na spoleèná srovnatelná období cen a mezd (2006–2018).
+
+Poznámka: tím, že je èást výpoètù (zprùmìrování a seskupení) provedeno už uvnitø pomocných tabulek je rychlost zpuštìní koneèného dotazu výraznì urychleno.
+
+Nyní, když byly veškeré nezbytné podklady pøipraveny, byly skrze vnìjší 'SELECT' klauzuli vypoèteny meziroèní procentuální rozdíly prùmìrných mezd a cen; z tìch byl poté zpoèten také rozdíl (rozdíl v meziroèních rozdílech mezd a cena potravin):
+* concat(pf.payroll_year," – ",pf2.payroll_year) AS time_period
+* round((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100,2) AS annual_percentage_salary_difference
+* round((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100,2) AS annual_percentage_price_difference
+* round(((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100),2) - round(((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100),2) AS salary_price_percentage_difference
+
+Tímto je dotaz pro úlohu è. 4 dokonèen. jeho spuštìním se nám zobrazí výpis meziroèních procentuálních rozdílù prùmìrných cen a mezd a také rozdíly v tìchto procentuálních meziroèních rozdílù.
+
+
 ## VÝSLEDKY
 ### ÚLOHA È. 1
-#### ZÁVÌR
+#### SHRNUTÍ
 
 Podle dosavadních dat existují pouze ètyøi odvìtví, ve kterých mzdy nepøerušovanì rostly:
 * Doprava a skladování
@@ -273,7 +540,38 @@ Pozorujeme i nìkolik odvìtví, u nichž lze postøehnout postupný pokles stoupání a
 * Zásobování vodou; èinnosti související s odpady a sanacemi
 * Zemìdìlství, lesnictví, rybáøství
 
-#### DETAILNÍ ROZBOR
+#### DETAILNÍ POPIS VÝSLEDKÙ
+
+### ÚLOHA È. 2
+
+!!! NUTNO PØEDÌLAT HRUBÉ MZDY NA ÈISTÉ !!!
+
+Pøi daných prùmìrných mzdách a cenách v prvním a posledním srovnatelném období, tedy v letech 2006 a 2018, je za celou výplatu možno nakoupit 1287.46 Kg a 1342.24 Kg chleba a 1437.24 l a 1641.57 l mléka.
+
+### ÚLOHA È. 3
+
+Ve výsledkích mùžeme vidìt, že v prùmìru ceny valné vìtšiny potravin zdražují; výjimkou jsou 'krystalový cukr' a 'rajská jablka èervená kulatá,' které naopak v prùmìru roènì slevòují o 1.92 % a 0.74 %. Podle dosavadních dat jsou tedy hypoteticky "nejpomaleji" zdražujícími potravinami 'Banány žluté', které v prùmìru roènì zdražují o 0,81 % a za nimi Vepøová peèenì s kostí 0.99 % roènì. Naopak v prùmìru nejrychleji se zdražující potravinou se zdají být 'Papriky': 7.29 % roènì a dále Máslo: 6.68 % 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
