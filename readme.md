@@ -10,17 +10,17 @@ Jako dodateèný materiál pøipravte i tabulku s HDP, GINI koeficientem a populací 
 Datové sady, které je možné použít pro získání vhodného datového podkladu
 Primární tabulky:
 
-czechia_payroll – Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
-czechia_payroll_calculation – Èíselník kalkulací v tabulce mezd.
-czechia_payroll_industry_branch – Èíselník odvìtví v tabulce mezd.
-czechia_payroll_unit – Èíselník jednotek hodnot v tabulce mezd.
-czechia_payroll_value_type – Èíselník typù hodnot v tabulce mezd.
-czechia_price – Informace o cenách vybraných potravin za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
-czechia_price_category – Èíselník kategorií potravin, které se vyskytují v našem pøehledu.
+* czechia_payroll – Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
+* czechia_payroll_calculation – Èíselník kalkulací v tabulce mezd.
+* czechia_payroll_industry_branch – Èíselník odvìtví v tabulce mezd.
+* czechia_payroll_unit – Èíselník jednotek hodnot v tabulce mezd.
+* czechia_payroll_value_type – Èíselník typù hodnot v tabulce mezd.
+* czechia_price – Informace o cenách vybraných potravin za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
+* czechia_price_category – Èíselník kategorií potravin, které se vyskytují v našem pøehledu.
 Èíselníky sdílených informací o ÈR:
 
-czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
-czechia_district – Èíselník okresù Èeské republiky dle normy LAU.
+* czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
+* czechia_district – Èíselník okresù Èeské republiky dle normy LAU.
 Dodateèné tabulky:
 
 countries - Všemožné informace o zemích na svìtì, napøíklad hlavní mìsto, mìna, národní jídlo nebo prùmìrná výška populace.
