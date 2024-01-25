@@ -149,9 +149,6 @@ Záznamy tabulky nám prozrazují prùmìrné hrubé mzdy podle roku a prùmyslového odv
 
 Protože tabulky byly propojeny skrze 'UNION' a do separátních sloupcù, mùžeme vidìt, že tabulka obsahuje mnoho prázdných záznamù, tedy když se díváme na záznamy z tabulky 'czechia_payroll', záznamy z tabulky 'czechia_price' jsou prázdné a naopak.
 
- 
-
-
 ## POSTUP
 ### VYTVOØENÍ PRIMÁRNÍ TABULKY
 #### ÚVOD
