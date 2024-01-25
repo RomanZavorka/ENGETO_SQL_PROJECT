@@ -8,31 +8,31 @@ Potøebují k tomu od vás pøipravit robustní datové podklady, ve kterých bude možn
 
 Jako dodateèný materiál pøipravte i tabulku s HDP, GINI koeficientem a populací dalších evropských státù ve stejném období, jako primární pøehled pro ÈR.
 
-### DATOVÉ SADY KTERÉ JE MOŽNÉ POUŽÍT PRO ZÍKSÁNÍ VHODNÉHO DATOVÉHO PODKLADU
+### DATOVÉ SADY KTERÉ JE MOŽNÉ POUŽÍT PRO ZÍSKÁNÍ VHODNÉHO DATOVÉHO PODKLADU
 
-Primární tabulky:
+####PRIMÁRNÍ TABULKY:
 
 1. czechia_payroll – Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
-* czechia_payroll_calculation – Èíselník kalkulací v tabulce mezd.
-* czechia_payroll_industry_branch – Èíselník odvìtví v tabulce mezd.
-* czechia_payroll_unit – Èíselník jednotek hodnot v tabulce mezd.
-* czechia_payroll_value_type – Èíselník typù hodnot v tabulce mezd.
-* czechia_price – Informace o cenách vybraných potravin za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
-* czechia_price_category – Èíselník kategorií potravin, které se vyskytují v našem pøehledu.
-Èíselníky sdílených informací o ÈR:
-* czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
-* czechia_district – Èíselník okresù Èeské republiky dle normy LAU.
-Dodateèné tabulky:
-* countries - Všemožné informace o zemích na svìtì, napøíklad hlavní mìsto, mìna, národní jídlo nebo prùmìrná výška populace.
-* economies - HDP, GINI, daòová zátìž, atd. pro daný stát a rok.
-Výzkumné otázky
-* Rostou v prùbìhu let mzdy ve všech odvìtvích, nebo v nìkterých klesají?
-* Kolik je možné si koupit litrù mléka a kilogramù chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
-* Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroèní nárùst)?
-* Existuje rok, ve kterém byl meziroèní nárùst cen potravin výraznì vyšší než rùst mezd (vìtší než 10 %)?
-* Má výška HDP vliv na zmìny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výraznìji v jednom roce, projeví se to na cenách potravin èi mzdách ve stejném nebo násdujícím roce výraznìjším rùstem?
+2. czechia_payroll_calculation – Èíselník kalkulací v tabulce mezd.
+3. czechia_payroll_industry_branch – Èíselník odvìtví v tabulce mezd.
+4. czechia_payroll_unit – Èíselník jednotek hodnot v tabulce mezd.
+5. czechia_payroll_value_type – Èíselník typù hodnot v tabulce mezd.
+6. czechia_price – Informace o cenách vybraných potravin za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
+7. czechia_price_category – Èíselník kategorií potravin, které se vyskytují v našem pøehledu.
+####ÈÍSELNÍKY SDÍLENÝCH INFORMACÍ O ÈR:
+1. czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
+2. czechia_district – Èíselník okresù Èeské republiky dle normy LAU.
+####DODATEÈNÉ TABULKY:
+1. countries - Všemožné informace o zemích na svìtì, napøíklad hlavní mìsto, mìna, národní jídlo nebo prùmìrná výška populace.
+2. economies - HDP, GINI, daòová zátìž, atd. pro daný stát a rok.
+####VÝZKUMNÉ OTÁZKY
+1. Rostou v prùbìhu let mzdy ve všech odvìtvích, nebo v nìkterých klesají?
+2. Kolik je možné si koupit litrù mléka a kilogramù chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
+3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroèní nárùst)?
+4. Existuje rok, ve kterém byl meziroèní nárùst cen potravin výraznì vyšší než rùst mezd (vìtší než 10 %)?
+5. Má výška HDP vliv na zmìny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výraznìji v jednom roce, projeví se to na cenách potravin èi mzdách ve stejném nebo násdujícím roce výraznìjším rùstem?
 
-Výstup projektu
+####VÝSTUP PROJEKTU
 
 Pomozte kolegùm s daným úkolem. Výstupem by mìly být dvì tabulky v databázi, ze kterých se požadovaná data dají získat. Tabulky pojmenujte t_{jmeno}_{prijmeni}_project_SQL_primary_final (pro data mezd a cen potravin za Èeskou republiku sjednocených na totožné porovnatelné období – spoleèné roky) a t_{jmeno}_{prijmeni}_project_SQL_secondary_final (pro dodateèná data o dalších evropských státech).
 
