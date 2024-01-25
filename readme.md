@@ -10,7 +10,7 @@ Jako dodateèný materiál pøipravte i tabulku s HDP, GINI koeficientem a populací 
 
 ### DATOVÉ SADY KTERÉ JE MOŽNÉ POUŽÍT PRO ZÍSKÁNÍ VHODNÉHO DATOVÉHO PODKLADU
 
-####PRIMÁRNÍ TABULKY:
+#### PRIMÁRNÍ TABULKY:
 
 1. czechia_payroll – Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
 2. czechia_payroll_calculation – Èíselník kalkulací v tabulce mezd.
@@ -22,17 +22,17 @@ Jako dodateèný materiál pøipravte i tabulku s HDP, GINI koeficientem a populací 
 ####ÈÍSELNÍKY SDÍLENÝCH INFORMACÍ O ÈR:
 1. czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
 2. czechia_district – Èíselník okresù Èeské republiky dle normy LAU.
-####DODATEÈNÉ TABULKY:
+#### DODATEÈNÉ TABULKY:
 1. countries - Všemožné informace o zemích na svìtì, napøíklad hlavní mìsto, mìna, národní jídlo nebo prùmìrná výška populace.
 2. economies - HDP, GINI, daòová zátìž, atd. pro daný stát a rok.
-####VÝZKUMNÉ OTÁZKY
+#### VÝZKUMNÉ OTÁZKY
 1. Rostou v prùbìhu let mzdy ve všech odvìtvích, nebo v nìkterých klesají?
 2. Kolik je možné si koupit litrù mléka a kilogramù chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
 3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroèní nárùst)?
 4. Existuje rok, ve kterém byl meziroèní nárùst cen potravin výraznì vyšší než rùst mezd (vìtší než 10 %)?
 5. Má výška HDP vliv na zmìny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výraznìji v jednom roce, projeví se to na cenách potravin èi mzdách ve stejném nebo násdujícím roce výraznìjším rùstem?
 
-####VÝSTUP PROJEKTU
+#### VÝSTUP PROJEKTU
 
 Pomozte kolegùm s daným úkolem. Výstupem by mìly být dvì tabulky v databázi, ze kterých se požadovaná data dají získat. Tabulky pojmenujte t_{jmeno}_{prijmeni}_project_SQL_primary_final (pro data mezd a cen potravin za Èeskou republiku sjednocených na totožné porovnatelné období – spoleèné roky) a t_{jmeno}_{prijmeni}_project_SQL_secondary_final (pro dodateèná data o dalších evropských státech).
 
