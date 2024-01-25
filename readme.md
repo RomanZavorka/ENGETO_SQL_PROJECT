@@ -1,16 +1,18 @@
 # SQL PROJEKT
 
 ## ZADÁNÍ
+### ÚVOD DO PROJEKTU
 "Na vašem analytickém oddìlení nezávislé spoleènosti, která se zabývá životní úrovní obèanù, jste se dohodli, že se pokusíte odpovìdìt na pár definovaných výzkumných otázek, které adresují dostupnost základních potravin široké veøejnosti. Kolegové již vydefinovali základní otázky, na které se pokusí odpovìdìt a poskytnout tuto informaci tiskovému oddìlení. Toto oddìlení bude výsledky prezentovat na následující konferenci zamìøené na tuto oblast.
 
 Potøebují k tomu od vás pøipravit robustní datové podklady, ve kterých bude možné vidìt porovnání dostupnosti potravin na základì prùmìrných pøíjmù za urèité èasové období.
 
 Jako dodateèný materiál pøipravte i tabulku s HDP, GINI koeficientem a populací dalších evropských státù ve stejném období, jako primární pøehled pro ÈR.
 
-Datové sady, které je možné použít pro získání vhodného datového podkladu
+### DATOVÉ SADY KTERÉ JE MOŽNÉ POUŽÍT PRO ZÍKSÁNÍ VHODNÉHO DATOVÉHO PODKLADU
+
 Primární tabulky:
 
-* czechia_payroll – Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
+1. czechia_payroll – Informace o mzdách v rùzných odvìtvích za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
 * czechia_payroll_calculation – Èíselník kalkulací v tabulce mezd.
 * czechia_payroll_industry_branch – Èíselník odvìtví v tabulce mezd.
 * czechia_payroll_unit – Èíselník jednotek hodnot v tabulce mezd.
