@@ -18,20 +18,20 @@ Primární tabulky:
 * czechia_price – Informace o cenách vybraných potravin za nìkolikaleté období. Datová sada pochází z Portálu otevøených dat ÈR.
 * czechia_price_category – Èíselník kategorií potravin, které se vyskytují v našem pøehledu.
 Èíselníky sdílených informací o ÈR:
-
 * czechia_region – Èíselník krajù Èeské republiky dle normy CZ-NUTS 2.
 * czechia_district – Èíselník okresù Èeské republiky dle normy LAU.
 Dodateèné tabulky:
-
-countries - Všemožné informace o zemích na svìtì, napøíklad hlavní mìsto, mìna, národní jídlo nebo prùmìrná výška populace.
-economies - HDP, GINI, daòová zátìž, atd. pro daný stát a rok.
+* countries - Všemožné informace o zemích na svìtì, napøíklad hlavní mìsto, mìna, národní jídlo nebo prùmìrná výška populace.
+* economies - HDP, GINI, daòová zátìž, atd. pro daný stát a rok.
 Výzkumné otázky
-Rostou v prùbìhu let mzdy ve všech odvìtvích, nebo v nìkterých klesají?
-Kolik je možné si koupit litrù mléka a kilogramù chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
-Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroèní nárùst)?
-Existuje rok, ve kterém byl meziroèní nárùst cen potravin výraznì vyšší než rùst mezd (vìtší než 10 %)?
-Má výška HDP vliv na zmìny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výraznìji v jednom roce, projeví se to na cenách potravin èi mzdách ve stejném nebo násdujícím roce výraznìjším rùstem?
+* Rostou v prùbìhu let mzdy ve všech odvìtvích, nebo v nìkterých klesají?
+* Kolik je možné si koupit litrù mléka a kilogramù chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
+* Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroèní nárùst)?
+* Existuje rok, ve kterém byl meziroèní nárùst cen potravin výraznì vyšší než rùst mezd (vìtší než 10 %)?
+* Má výška HDP vliv na zmìny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výraznìji v jednom roce, projeví se to na cenách potravin èi mzdách ve stejném nebo násdujícím roce výraznìjším rùstem?
+
 Výstup projektu
+
 Pomozte kolegùm s daným úkolem. Výstupem by mìly být dvì tabulky v databázi, ze kterých se požadovaná data dají získat. Tabulky pojmenujte t_{jmeno}_{prijmeni}_project_SQL_primary_final (pro data mezd a cen potravin za Èeskou republiku sjednocených na totožné porovnatelné období – spoleèné roky) a t_{jmeno}_{prijmeni}_project_SQL_secondary_final (pro dodateèná data o dalších evropských státech).
 
 Dále pøipravte sadu SQL, které z vámi pøipravených tabulek získají datový podklad k odpovìzení na vytyèené výzkumné otázky. Pozor, otázky/hypotézy mohou vaše výstupy podporovat i vyvracet! Záleží na tom, co øíkají data.
