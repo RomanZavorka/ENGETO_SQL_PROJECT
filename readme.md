@@ -433,7 +433,7 @@ The tables were linked through matching food categories and years, where an extr
 The table was joined using 'INNER JOIN' to remove undesired records with 'NULL' values resulting from shifting records in 'pf2' one year back -> records prior to 2006 are not available. At the same time, this also removed the empty values generated when the 'pf' table was created by merging 'cp' and 'cpr' through 'UNION' clause.
 
 After successful joining of table 'pf2' the following changes were made in the outer 'SELECT' clause in the layout of the displayed columns:
-* concat(pf.price_year," – ", pf2.price_year) AS time_period
+* concat(pf.price_year," - ", pf2.price_year) AS time_period
 * pf.foodstuff_name,
 * pf.mean_price_czk AS latter_mean_price_czk
 * pf2.mean_price_czk AS former_mean_price_czk
@@ -505,7 +505,7 @@ The 'INNER JOIN' ensures that the final outputs are limited to the common compar
 Note: by doing some of the calculations (averaging and grouping) already inside the supporting tables, the speed of running the final query is greatly increased.
 
 Now that all the necessary sub-calculations have been made, the year-on-year percentage differences in mean salaries and prices were calculated through an external 'SELECT' clause; the annual difference between salaries and prices of foodstuffs was also calculated from these differences as follows:
-* concat(pf.payroll_year," – ",pf2.payroll_year) AS time_period
+* concat(pf.payroll_year," - ",pf2.payroll_year) AS time_period
 * round((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100,2) AS annual_percentage_salary_difference
 * round((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100,2) AS annual_percentage_price_difference
 * round(((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100),2) - round(((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100),2) AS salary_price_percentage_difference
@@ -585,7 +585,7 @@ At this point, the nested query for the 'sf' table is complete and running it sh
 'ON pf.payroll_year = sf.`year`'
 
 Next, once the three supporting tables have been joined, columns were then set up in the main 'SELECT' clause to calculate the percentage annual differences for salaries, foodstuff prices and hdp in years:
-* concat(pf.payroll_year," – ",pf2.payroll_year) AS time_period
+* concat(pf.payroll_year," - ",pf2.payroll_year) AS time_period
 * round((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100,2) AS annual_percentage_salary_difference
 * round((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100,2) AS annual_percentage_price_difference
 * sf.gdp_annual_difference (already calculated in the joined table)
