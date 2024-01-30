@@ -505,7 +505,7 @@ The 'INNER JOIN' ensures that the final outputs are limited to the common compar
 Note: by doing some of the calculations (averaging and grouping) already inside the supporting tables, the speed of running the final query is greatly increased.
 
 Now that all the necessary sub-calculations have been made, the year-on-year percentage differences in mean salaries and prices were calculated through an external 'SELECT' clause; the annual difference between salaries and prices of foodstuffs was also calculated from these differences as follows:
-* concat(pf.payroll_year," – ",pf2.payroll_year) AS time_period
+* concat(pf.payroll_year," - ",pf2.payroll_year) AS time_period
 * round((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100,2) AS annual_percentage_salary_difference
 * round((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100,2) AS annual_percentage_price_difference
 * round(((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100),2) - round(((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100),2) AS salary_price_percentage_difference
