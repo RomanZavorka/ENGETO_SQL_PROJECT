@@ -454,10 +454,10 @@ The final output was also ordered in ascending order by the newly calculated mea
 
 'ORDER BY mean_percentage_price_difference ASC
 
-The SQL query to answer question 3 is now completed, and by executing it we get a list of groceries with their mean percentage year-to-year difference, which is ordered primarily by the level of this difference and secondarily by the name of each grocery.
+The SQL query to answer question 3 is now completed, and by executing it we get a list of groceries with their mean percentage year-to-year price difference, which is ordered in ascending order by the level of this difference.
 
 ### QUERY FOR QUESTION 4: 
-Because the task requires us to determine whether there is a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10%), we needed to calculate the percentage differences between the annual means for salaries and food prices. To achieve this, supporting duplicate tables 'pf2' and 'pf3' were joined.
+Because the task requires us to determine whether there was a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10 %), we needed to calculate the year-on-year percentage differences for salaries and food prices. To achieve this, supporting duplicate tables 'pf2' and 'pf3' were joined.
 
 The first of the two tables 'pf2' was used for the calculation of the annual differences in salaries between years, so the columns with information about the year and the calculation of the mean salary were selected through a nested query:
 * payroll_year
@@ -466,6 +466,7 @@ The first of the two tables 'pf2' was used for the calculation of the annual dif
 The results in the table have also been stripped of blank records and grouped by year:
 
 'WHERE mean_salary_czk IS NOT NULL'
+
 'GROUP BY payroll_year'
 
 At this point, the nested query of our table shows the total unrounded mean salaries for individual years. The table was then joined through 'INNER JOIN' by common years, where an extra year was added to 'pf2' to shift its records one year back:
