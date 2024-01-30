@@ -115,6 +115,7 @@ Since only records with the same number of columns can be joined via 'UNION' cla
 
 ### ANALYSIS OF THE OUTPUT PRIMARY TABLE
 
+
 The result of our efforts is the table "t_roman_zavorka_project_sql_primary_final" with a range of 760 records and a total of 7 columns:
 * payroll_year - information about the year for which the salary records are valid.
 * industry_branch_name - the name of the industry sector
@@ -137,7 +138,7 @@ The primary table t_roman_zavorka_project_sql_primary_final containing data from
 
 As was described above in the analysis section, the creation of the resulting table was done through the 'UNION' clause merging two separate SQL queries; one for the 'czechia_payroll' table and the other for the 'czechia_price' table.
 
-#### QUERY FOR 'CZECHIA_PAYROLL'
+####QUERY FOR 'CZECHIA_PAYROLL'
 In the 'FROM' clause, the name of the corresponding czechia_payroll table (cp) from which the data was loaded was inserted. At the beginning all columns were displayed: 'SELECT *'.
 
 Through the 'INNER JOIN' clause ('LEFT JOIN' can also be used), a supporting table 'czechia_payroll_industry_branch' (cpib) was joined containing a codebook to identify individual branches of industry from the 'cp.industry_branch_code' column. The table has been attached as follows:
@@ -174,7 +175,7 @@ The final output of this table was then ordered in descending order by year and 
 'ORDER BY cp.payroll_year DESC, industry_branch_name ASC'
 
 At this point, the result is a table with three columns: payroll_year, industry_branch_name and mean_salary_czk; the table range is 418 rows in total. The table shows us mean salaries in each year in each industry and is ordered in descending order by year and ascending order by industry name.
-#### QUERY FOR 'CZECHIA_PRICE'
+####QUERY FOR 'CZECHIA_PRICE'
 The table name 'czechia_price' (cpr) was inserted into the 'FROM' clause and initially all columns were displayed using SELECT *.
 
 Values regarding food prices are found in the 'value' column, (same name as in the czechia_payroll table), with foodstuff being identified only in the 'category_code' column.
@@ -473,7 +474,6 @@ The first of the two tables 'pf2' was used for the calculation of the annual dif
 The results in the table have also been stripped of blank records and grouped by year:
 
 'WHERE mean_salary_czk IS NOT NULL'
-
 'GROUP BY payroll_year'
 
 At this point, the nested query of our table shows the total unrounded mean salaries for individual years. The table was then joined through 'INNER JOIN' by common years, where an extra year was added to 'pf2' to shift its records one year back:
@@ -690,4 +690,5 @@ As with food prices, some response to GDP development can be seen in salaries, b
 
 In 2009-2008, when the decline in GDP was the largest (-4.66%), salaries in this and the following period only experienced a decline in the growth rate (-4.71% and -1.21%), which eventually started to recover. The decline in salaries was only observed in the period 2013-2012, when salaries fell by -1.56%, whereas in this and the previous period only slight declines in GDP (-0.05% and -0.79%) were observed in general, and it is therefore a question of whether this decline in salaries was due to these two milder declines or whether it was a delayed response to the strong decline in GDP of 2009-2008. In the following years, as GDP started to pick up again and growth accelerated, the growth in salaries started to accelerate as well.
 
-From the data so far, it appears that the rate of GDP growth or decline affects the development of prices and salaries, so if GDP falls or rises significantly, it is very likely that there will be a fall or rise in salaries and food prices, or at least a change in the rate of growth or decline, but that effect may not occur until some time has passed.
+From the data so far, it appears that the rate of GDP growth or decline affects the development of prices and salaries, so if GDP falls or rises significantly, it is very likely that there will be a fall or rise in salaries and food prices, or at least a change in the rate of growth or decline, but that effect may not occur until some time has passed. 
+
