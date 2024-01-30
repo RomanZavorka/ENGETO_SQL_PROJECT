@@ -12,10 +12,10 @@ As additional material, also prepare a table with GDP, GINI coefficient and popu
 4. czechia_payroll_unit - Codebook of the unit of value in the payroll table.
 5. czechia_payroll_value_type - Codebook of value types in the payroll table.
 6. czechia_price - Information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
-7. czechia_price_category - codebook of food categories that appear in our overview.
+7. czechia_price_category - Codebook of food categories that appear in our overview.
 #### CODEBOOKS OF SHARED INFORMATION ABOUT THE CZECH REPUBLIC:
-1. czechia_region - codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
-2. czechia_district - codebook of districts of the Czech Republic according to the LAU standard.
+1. czechia_region - Codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
+2. czechia_district - Codebook of districts of the Czech Republic according to the LAU standard.
 #### ADDITIONAL TABLES:
 1. countries - All kinds of information about countries in the world, for example capital city, currency, national food or mean height of population.
 2. economies - GDP, GINI, tax incidence, etc. for a given country and year.
@@ -26,27 +26,27 @@ As additional material, also prepare a table with GDP, GINI coefficient and popu
 4. Is there a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10%)?
 5. Does the GDP level affect changes in salaries and food prices? Or, if GDP rises more significantly in one year, does this result in a more significant rise in food prices or salaries in the same or the following year?
 #### PROJECT OUTPUT
-Help your colleagues with the given task. The output should be two tables in a database from which the required data can be obtained. Name the tables t_{jmeno}_{prijmeni}_project_SQL_primary_final (for salary and food prices data for the Czech Republic united to the same comparable period - common years) and t_{jmeno}_{prijmeni}_project_SQL_secondary_final (for additional data on other European countries).
+Help your colleagues with the given task. The output should be two tables in a database from which the required data can be obtained. Name the tables  t_{jmeno}_{prijmeni}_project_SQL_primary_final (for salary and food prices data for the Czech Republic united to the same comparable period - common years) and t_{jmeno}_{prijmeni}_project_SQL_secondary_final (for additional data on other European countries).
 
 Next, prepare a set of SQL to obtain data from the tables you have prepared to answer the research questions. Note that the questions/hypotheses can both support and refute your outputs! It depends on what the data show.
 
-Create a repository on your GitHub account (can be private) where you store all the information for the project - mainly the SQL script that generates the output table, a description of the intermediate results (a guide sheet), and information about the output data (e.g., where values are missing, etc.).
+Create a repository on your GitHub account (can be private) where you store all the information for the project - mainly the SQL script that generates the output table, a description of the intermediate results (a guide sheet), and information about the output data (for example, where values are missing, etc.).
 
 Do not edit data in primary tables! If it is necessary to transform values, do so in the tables or views you are creating.
 
 ## ANALYSIS
 ### OVERVIEW OF SOURCE TABLES
-For the creating of the primary table, two main tables were available, to which the secondary tables - codebooks - were linked.
+For the creation of the primary table, two main tables were available, to which the secondary tables - codebooks - were linked.
 
 czechia_payroll - Information on salaries in different sectors over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.  The table consists of 8 columns:
 * id
-* value
-* value_type_code
-* unit_code - code of the unit in which the values are represented
-* calculation_code - code of the method of calculation of the value
-* industry_branch_code
-* payroll_year - year for which the table records are valid
-* payroll_quarter - the quarter for which the table records are valid
+* value - Mean gross salaries and mean numbers of employees in industries.
+* value_type_code - Code of the type of value.
+* unit_code - Code of the unit in which the values are represented.
+* calculation_code - Code of the method of calculation of the value.
+* industry_branch_code.
+* payroll_year - Year for which the table records are valid.
+* payroll_quarter - The quarter for which the table records are valid.
 
 Several supplementary tables are linked to this table:
 * czechia_payroll_calculation - Codebook of calculations in the payroll table.
@@ -56,89 +56,85 @@ Several supplementary tables are linked to this table:
 
 czechia_price - Information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic. This table consists of 6 columns:
 * id
-* value - mean prices for each food category
-* category_code - food category code
-* date_from
-* date_to
-* region_code - region code
+* value - Mean prices for each food category.
+* category_code - Food category code.
+* date_from - start of measurement
+* date_to - end of measurement
+* region_code - Region code.
 
 The following supporting tables link to this table:
-* czechia_price_category - codebook of food categories that appear in our overview.
-* czechia_region - codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
+* czechia_price_category - Codebook of food categories that appear in our overview.
+* czechia_region - Codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
 
 ### PRIMARY TABLE CREATION
 
-The purpose of creating the primary table is to merge the tables czechia_payroll and czechia_price (and possibly their supplementary tables - codebooks) into one table through the same comparable period, that is common years, from which it will be possible to obtain data on salaries and food prices for the Czech Republic for the following tasks - scientific questions.
+The purpose of creating the primary table is to merge the tables 'czechia_payroll' and 'czechia_price' (and possibly their supplementary tables - codebooks) into one table through the same comparable period, that is common years, from which it would be possible to obtain data on salaries and food prices for the Czech Republic for the following tasks - answering the given scientific questions.
 
 Both tables contain a large amount of information, which is further described in the following supporting tables - codebooks. The first step was therefore to get familiar with the tables and find out what they contain and, according to the assignment, to consider which data are important for us and which are not. In both of these tables we can see that there are several columns that contain only simple codes that do not tell us anything - these codes are described in the linked codebooks. 
 
 Some codebooks have been used only once: 
-* czechia_payroll_value_type - setting of ' value_type_code' to show only the salary values - code 5958
+* czechia_payroll_value_type - setting of ' value_type_code' to show only the salary values - code 5958.
 * czechia_payroll_unit - to find out in which units the values in the 'value' column are expressed (for salaries it is Czech crowns).
 
 Two tables have been permanently attached: 
-* czechia_price_category - identification of food categories and their quantity units
-*czechia_payroll_industry_branch - identification of industry sector.
+* czechia_price_category - identification of food categories and their quantity units.
+* czechia_payroll_industry_branch - identification of industry sector.
 
-some tables were not used at all: 
+And some tables were not used at all: 
 * czechia_payroll_calculation - the method of value calculation is not important for us.
 * czechia_region - the data was processed for the Czech Republic as a whole; therefore, the identification of regions was not important for us.
 
-After becoming familiar with the content of the tables, there were several obstacles to overcome in creating the table. One obstacle was the content of unnecessary records and values. The 'czechia_payroll' table contains not only records on gross salaries but also records on mean number of employees in sectors - we are not interested in such values here and so they were excluded. Similarly, values on salaries that did not contain information about the industry, which we consider essential, have been excluded as well. 'NULL' values in 'value' column regarding salaries have not been observed.
+After becoming familiar with the content of the tables, there were several obstacles to overcome in order to create the table. One obstacle was the content of unnecessary records and values. The 'czechia_payroll' table contains not only records on mean gross salaries but also records on mean number of employees in sectors - we are not interested in such values here and so they were excluded. Similarly, values on salaries that did not contain information about the industry, which we consider essential, have been excluded as well. 'NULL' values in 'value' column regarding salaries have not been observed.
 
-In the 'czechia_price' table, 'NULL' values were observed only in the 'region_code' column, but since the data in this project is processed for the Czech Republic as a whole, this missing region information is not a problem. No records were excluded in the 'czechia_price' table.
+In the 'czechia_price' table, 'NULL' values were observed only in the 'region_code' column, but since the data in this project is processed for the Czech Republic as a whole, this missing information about region is not a problem. No records were excluded in the 'czechia_price' table.
 
-Another problem was the extent of the tables, especially 'czechia_price' which has a total of 108,249 records. 'czechia_payroll' had 3,268 of the original 6,880 records after eliminating unnecessary records. The records of both tables have therefore been averaged and grouped (by year and industry sector / food category), thus reducing their size significantly: 'czechia_payroll' to 418 and czechia_price to 342. With these reduced scopes, all operations with these tables will be significantly faster and their data easier to comprehend. 
+Another problem was the extent of the tables, especially 'czechia_price' which has a total of 108 249 records. 'czechia_payroll' had 3 268 of the original 6 880 records after eliminating unnecessary records. The records of both tables have therefore been averaged and grouped (by year and industry sector / food category), thus reducing their size significantly: 'czechia_payroll' to 418 and 'czechia_price' to 342. With these reduced scopes, all operations with these tables shall be significantly faster and their data easier to comprehend. 
 
 Another obstacle was also finding a way to pair the data of the two tables. The tables are basically independent of each other, and the only common feature is the time of measurement - the year. In the 'czechia_payroll' table, this information was contained in the column 'payroll_year.' In the 'czechia_price' table, it was the columns 'date_to' and 'date_from' that contained the full date, where the year was always the same in both columns, so any of the columns could be used.
 
-It is also important to note that the tables do not have the same range of years for which the records are valid: the czechia_payroll table contains records for the years 2000-2021, while the czechia_price table only contains records for the years 2006-2018. Therefore, the tables can only be compared with each other between 2006 and 2018.
+It is also important to note that the tables do not have the same range of years for which the records are valid: the 'czechia_payroll' table contains records for the years 2000-2021, while the 'czechia_price' table only contains records for the years 2006-2018. Therefore, the tables can only be compared with each other between 2006 and 2018.
 
 In addition to limiting the records (rows), our effort was also to limit the number of columns, where in the 'czechia_payroll' table only three columns containing the following information were finally selected:
 * information about year - payroll_year
-* industry branch name - cpib.name (from codebook 'czechia_payroll_industry_branch')
+* industry branch name - cpib.name (from joined codebook 'czechia_payroll_industry_branch')
 * mean gross salary - value (averaged and rounded afterwards)
 
-In the czechia_price table:
+In the 'czechia_price' table it was four columns:
 * information about year - date_from (inserted into the year() function afterwards) 
-* mean foodstuff price - value ( afterwards averaged and rounded). Note: it is not clearly defined in what units the food prices are presented here - we assume they are in Czech crowns.
-* food category name (from codebook 'czechia_price_category') 
-* information about the quantity for which the prices are valid (from the 'czechia_price_category' codebook) - created by concatenating the 'price_value' and 'price_unit' columns via the concat() function.
+* mean foodstuff price - value (afterwards averaged and rounded). Note: it is not clearly defined in what units the food prices are presented here - we assume they are in Czech crowns.
+* food category name (from joined codebook 'czechia_price_category') 
+* information about the quantity for which the prices are valid - created by concatenating the 'price_value' and 'price_unit' (from the 'czechia_price_category' codebook) columns via the concat() function.
 
 The selected columns were then renamed where necessary to avoid the problem of duplicate names and to make it clear what they contain.
 
 As the data of the two tables have no direct relation to each other except for the common years, the method of linking via the 'JOIN' clause did not seem appropriate, as all records from one table would be bound to the records with the same year in the other table, hence unnecessary multiplication (duplication) of records would occur, thus negating our efforts to reduce the data to a minimum.
 
-Therefore, the connection of the two mentioned tables was made through the 'UNION' clause.' This way, the tables are connected not from the side but from the bottom, thus avoiding duplication of records. 
+Therefore, the connection of the two mentioned tables was made through the 'UNION' clause.' This way, the tables are connected not through the sides but through the top and bottom, thus avoiding duplication of records.
 
-Since only records with the same number of columns can be joined via 'UNION' clause, it was necessary to balance the number of columns. In our case this was achieved by inserting additional 'NULL' columns containing empty values. These 'NULL' columns were inserted into both tables so that the records of both tables had their own separate columns (described in more detail in the 'procedure' section). 
-
-### ANALYSIS OF THE OUTPUT PRIMARY TABLE
-
-
+Since only tables with the same number of columns can be joined via 'UNION' clause, it was necessary to balance the number of columns. In our case this was achieved by inserting additional 'NULL' columns containing empty values. These 'NULL' columns were inserted into both tables so that the records of both tables had their own separate columns (to be more explained in the 'procedure' section). 
+### PRIMARY TABLE OUTPUT
 The result of our efforts is the table "t_roman_zavorka_project_sql_primary_final" with a range of 760 records and a total of 7 columns:
 * payroll_year - information about the year for which the salary records are valid.
-* industry_branch_name - the name of the industry sector
-* mean_salary_czk - average gross salaries by year and industry sector
-* price_year - information on the year for which the food price records are valid 
-* foodstuff_name - name of the food category
-* mean_price_czk - average prices by year and food category 
+* industry_branch_name - the name of the industry sector.
+* mean_salary_czk - average gross salaries by year and industry sector.
+* price_year - information on the year for which the food price records are valid.
+* foodstuff_name - name of the food category.
+* mean_price_czk - average prices by year and food category. 
 * price_unit - the unit of quantity to which the food price records apply.
 
-Table records tell us the mean gross salaries by year and industry branch in the period 2000-2021 and also the mean prices (for a given quantity) by year and food category in the period 2006-2018.
+Table records show us the mean gross salaries by year and industry branch in the period 2000-2021 and also the mean prices (for a given quantity) by year and food category in the period 2006-2018.
 
-
-Since the tables have been joined through the 'UNION' clause and into separate columns, we can see that the table contains many empty records, that is, when we look at the records from the 'czechia_payroll' table, the records from the 'czechia_price' table are empty and the other way around.
+Since the tables have been merged through the 'UNION' clause and into separate columns, we can see that the table contains many empty records, that is, when we look at the records from the 'czechia_payroll' table, the records (columns) from the 'czechia_price' table are empty and the other way around.
 
 ## PROCEDURE
 ### PRIMARY TABLE CREATION
 #### INTRODUCTION
 
-The primary table t_roman_zavorka_project_sql_primary_final containing data from both tables was created via the 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' clause, where 'CREATE' creates the table and if a table with that name already exists, the 'REPLACE' statement is activated to replace the existing table with the new one, allowing the table to be easily edited and updated if necessary. In our case, the table was created via an SQL query following the 'AS.' clause.
+The primary table 't_roman_zavorka_project_sql_primary_final' containing data from both tables was created via the 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' clause, where 'CREATE' creates the table and if a table with that name already exists, the 'REPLACE' statement is activated to replace the existing table with the new one, allowing the table to be easily edited and updated if necessary. In our case, the table was created via an SQL query following the 'AS.' clause.
 
 As was described above in the analysis section, the creation of the resulting table was done through the 'UNION' clause merging two separate SQL queries; one for the 'czechia_payroll' table and the other for the 'czechia_price' table.
 
-####QUERY FOR 'CZECHIA_PAYROLL'
+#### QUERY FOR 'CZECHIA_PAYROLL'
 In the 'FROM' clause, the name of the corresponding czechia_payroll table (cp) from which the data was loaded was inserted. At the beginning all columns were displayed: 'SELECT *'.
 
 Through the 'INNER JOIN' clause ('LEFT JOIN' can also be used), a supporting table 'czechia_payroll_industry_branch' (cpib) was joined containing a codebook to identify individual branches of industry from the 'cp.industry_branch_code' column. The table has been attached as follows:
@@ -175,7 +171,7 @@ The final output of this table was then ordered in descending order by year and 
 'ORDER BY cp.payroll_year DESC, industry_branch_name ASC'
 
 At this point, the result is a table with three columns: payroll_year, industry_branch_name and mean_salary_czk; the table range is 418 rows in total. The table shows us mean salaries in each year in each industry and is ordered in descending order by year and ascending order by industry name.
-####QUERY FOR 'CZECHIA_PRICE'
+#### QUERY FOR 'CZECHIA_PRICE'
 The table name 'czechia_price' (cpr) was inserted into the 'FROM' clause and initially all columns were displayed using SELECT *.
 
 Values regarding food prices are found in the 'value' column, (same name as in the czechia_payroll table), with foodstuff being identified only in the 'category_code' column.
