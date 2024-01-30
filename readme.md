@@ -381,20 +381,17 @@ At this point we have overall mean 'gross' salaries and mean prices for milk and
 * mean gross salary: 32535,86 CZK
 * health (4,5%) and social insurance (6,5%): total 3580 CZK
 * tax base: 32535,86*1,34 rounded up to the nearest hundred: 43600 CZK
-* income tax: 43600*0,15-2070 (tax discount): 4470 CZK
+* income tax: 43600*0,15-2070 (tax discount 2070 CZK): 4470 CZK
 * net salary: 32535,86-3580-4470 = 24 486 CZK (rounded up)
 
 2006:
 * average gross salary: 20753,79 CZK
 * health (4,5%) and social insurance (8%): total 2595 CZK
 * tax base: 20753,79-2595 = 18158,79 CZK rounded up to the nearest hundred: 18200 CZK
-* income tax: (18200-18200)*0.25+2715-600 (tax discount): 2115 CZK
+* income tax: (18200-18200)*0.25+2715-600 (tax discount 600 CZK): 2115 CZK
 * net salary: 18158,79-2115 = 16 044 CZK (rounded up)
 
 Note: the calculation is made with only the basic tax discount. The methodological procedure for calculating net salaries was in both years different.
-
-Now that the net pay for our two periods has been calculated,
-the columns with the net salary and the calculation of how much food can be purchased with the given mean net salaries and prices have been added to the 'SELECT' clause:
 
 Now that the net salary for the two periods has been calculated the columns with the net salary and the calculation of the amount of food that can be purchased at the given mean net salaries and prices have been added to the 'SELECT' clause:
 * pf.payroll_year
