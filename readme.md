@@ -211,29 +211,29 @@ The first obstacle that stood in the way of the merging of the two tables was th
 
 czechia_payroll (the upper table):
  
-* cp.payroll_year, 
-* cpib.name AS industry_branch_name, 
-* round(avg(cp.value),2) AS mean_salary_czk,
-* null AS price_year, 
-* null AS foodstuff_name, 
-* null AS mean_price_czk, 
+* cp.payroll_year
+* cpib.name AS industry_branch_name 
+* round(avg(cp.value),2) AS mean_salary_czk
+* null AS price_year
+* null AS foodstuff_name 
+* null AS mean_price_czk 
 * null AS price_unit
 
 czechia_price (the lower table):
  
-* null, 
-* null, 
-* null, 
-* year(cpr.date_from) AS price_year, 
-* cpc.name AS foodstuff_name, 
-* round(avg(cpr.value),2) AS mean_price_czk, 
+* null 
+* null 
+* null 
+* year(cpr.date_from) AS price_year 
+* cpc.name AS foodstuff_name 
+* round(avg(cpr.value),2) AS mean_price_czk 
 * concat(cpc.price_value," ",cpc.price_unit) AS price_unit
 
 This way the problem with unequal number of columns was solved and at the same time the columns of both tables have been separated. After that it was necessary to wrap the queries of the two tables in parentheses and merge them using the 'UNION' clause, which completes the SQL query for displaying all necessary items of both tables (it can also be performed through 'UNION ALL', but the result would be the same).
 
 Even though both SQL queries have been ordered descending by year and ascending by industry/food category through the 'ORDER BY' clause, the output of our 'united' query is not ordered as we expected. Thus, this 'united' query was additionally nested into a new query, through which we display all the data ordered according to our expectation:
 
-'ORDER BY payroll_DESC, industry_branch_name ASC, price_year DESC, foodstuff_name ASC
+'ORDER BY payroll_DESC, industry_branch_name ASC, price_year DESC, foodstuff_name ASC'
 
 Now, as already mentioned at the beginning, all that is now needed to do is just to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' above the current query which will give the command to create or replace the table 't_roman_zavorka_project_sql_primary_final.'
 
@@ -250,7 +250,7 @@ The 'countries' table was chosen as the first and so was inserted into the FROM 
 
 Next, the 'economies' table was joined using the 'INNER JOIN' ('LEFT JOIN' could be used as well) clause through the 'country' column: 
 
-'INNER JOIN economies c ON e.country = c.country'
+'INNER JOIN economies e ON e.country = c.country'
 
 Since the table is supposed to contain data for other European countries, but it is not clearly specified which ones, all countries located on the European continent were selected. 
 
