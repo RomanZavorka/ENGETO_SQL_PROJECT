@@ -273,11 +273,11 @@ The objective is to provide data regarding GDP, GINI coefficient and population 
 
 That completes the SQL query to select the data for the secondary table. The resulting table consists of a total of 8 columns and its range is 945 records. The table provides us with some basic information about European countries (capital city, location on the continent, abbreviation of local currency) and the development of economic indicators GDP and gini and population in years between 2000 to 2020.
 
-Note: when creating secondary table locally, it has 945 records, while on 'data_academy_2023_12_06' it only had 840 records - perhabs they are missing some data? However GDP data for Czech Republic is intact.
+Note: when creating secondary table locally (local server), it has 945 records, while on server 'data_academy_2023_12_06' it only had 840 records - perhabs its missing some of the data? However GDP data for Czech Republic is intact.
 
 At this point, same as with the primary table, all that is now needed to do is to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_secondary_final AS' above the existing query which will give command to create or replace the table 't_roman_zavorka_project_SQL_secondary_final.'
 ### QUERY FOR QUESTION 1: 
-In order to find out whether salaries in individual industry sectors are rising or declining, a column was created showing the differences in salaries between years for each sector. This was accomplished by joining a duplicate table 'pf2.'
+In order to find out whether salaries in individual industry sectors are rising or declining, a column calculating the differences in salaries between years for each sector was created. This was accomplished by joining a duplicate table 'pf2.'
 
 The following columns were selected from our primary table 'pf' via a 'SELECT' clause:
 * pf.payroll_year - the years for which the salary records are valid
@@ -352,11 +352,9 @@ The records in the nested query have therefore been limited through the 'WHERE' 
 
 "WHERE pf.price_year IN (2006, 2018) AND (pf.foodstuff_name LIKE '%mléko%' OR pf.foodstuff_name LIKE '%chléb%')"
 
-These conditions will ensure that only records in year 2006 and 2018 will be displayed, and at the same time only food categories with 'mléko' or 'chléb' in their name will be displayed.
+These conditions ensure that only records in year 2006 and 2018 are displayed, and at the same time only food categories with 'mléko' or 'chléb' in their name are displayed.
 
-The nested query is now complete and executing it will show us a table with 4 columns and 4 records: the mean prices for 1 kg of bread and 1 l of milk in 2006 and 2018.
-
-The nested query is now complete and its execution shows us a table with 4 columns and 4 records: mean prices for 1 kg of bread (chléb) and 1 l of milk (mléko) in year 2006 and 2018.
+The nested query is now complete and its execution shows us a table with 4 columns and 4 records: mean prices for 1 kg of bread (chléb) and 1 liter of milk (mléko) in year 2006 and 2018.
 
 Afterwards, the tables were linked through common years:
 
