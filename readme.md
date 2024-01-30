@@ -457,7 +457,7 @@ The final output was also ordered in ascending order by the newly calculated mea
 The SQL query to answer question 3 is now completed, and by executing it we get a list of groceries with their mean percentage year-to-year price difference, which is ordered in ascending order by the level of this difference.
 
 ### QUERY FOR QUESTION 4: 
-Because the task requires us to determine whether there was a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10 %), we needed to calculate the year-on-year percentage differences for salaries and food prices. To achieve this, supporting duplicate tables 'pf2' and 'pf3' were joined.
+Because the task requires us to determine whether there was a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10 %), we needed to calculate the year-on-year percentage differences for salaries and food prices. To achieve this, supporting duplicate tables 'pf2' and 'pf3' were joined first.
 
 The first of the two tables 'pf2' was used for the calculation of the annual differences in salaries between years, so the columns with information about the year and the calculation of the mean salary were selected through a nested query:
 * payroll_year
@@ -500,7 +500,7 @@ The 'INNER JOIN' ensures that the final outputs are limited to the common compar
 
 Note: by doing some of the calculations (averaging and grouping) already inside the supporting tables, the speed of running the final query is greatly increased.
 
-Now that all the necessary sub-calculations have been made, the year-on-year percentage differences in mean salaries and prices were calculated through an external 'SELECT' clause; the annual difference between salaries and prices of foodstuffs was also calculated from these differences as follows:
+Now that all the necessary sub-calculations have been made, the year-on-year percentage differences in mean salaries and prices were calculated through an external 'SELECT' clause; also the percentage difference between salaries and prices was calculated from these year-on-year differences as follows:
 * concat(pf.payroll_year," - ",pf2.payroll_year) AS time_period
 * round((avg(pf.mean_salary_czk) - pf2.former_mean_salary_czk) / pf2.former_mean_salary_czk*100,2) AS annual_percentage_salary_difference
 * round((pf3.latter_mean_price_czk - pf3.former_mean_price_czk) / pf3.former_mean_price_czk*100,2) AS annual_percentage_price_difference
