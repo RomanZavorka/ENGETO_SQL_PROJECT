@@ -254,7 +254,7 @@ Next, the 'economies' table was joined using the 'INNER JOIN' ('LEFT JOIN' could
 
 Since the table is supposed to contain data for other European countries, but it is not clearly specified which ones, all countries located on the European continent were selected. 
 
-The second condition is that the records are supposed to be for the same period as the primary overview for the Czech Republic; czechia_payroll: 2000-2021 and czechia_price 2006-2018 -> the records were therefore limited to the year 2000 and above. These conditions were set via the 'WHERE' clause as follows:
+The second condition is that the records are supposed to be for the same period as the primary overview for the Czech Republic; 'czechia_payroll': 2000-2021 and 'czechia_price': 2006-2018 -> thus the records were therefore limited to the year 2000 and above (records are available up to year 2020). These conditions were set via the 'WHERE' clause as follows:
 
 "WHERE c.continent = 'Europe' AND e.`year`>= 2000"
 
