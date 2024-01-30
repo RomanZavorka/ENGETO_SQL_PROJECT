@@ -226,7 +226,8 @@ czechia_price (the lower table):
 * null, 
 * year(cpr.date_from) AS price_year, 
 * cpc.name AS foodstuff_name, 
-* round(avg(cpr.value),2) AS mean_price_czk, * concat(cpc.price_value," ",cpc.price_unit) AS price_unit
+* round(avg(cpr.value),2) AS mean_price_czk, 
+* concat(cpc.price_value," ",cpc.price_unit) AS price_unit
 
 This way the problem with unequal number of columns was solved and at the same time the columns of both tables have been separated. After that it was necessary to wrap the queries of the two tables in parentheses and merge them using the 'UNION' clause, which completes the SQL query for displaying all necessary items of both tables (it can also be performed through 'UNION ALL', but the result would be the same).
 
