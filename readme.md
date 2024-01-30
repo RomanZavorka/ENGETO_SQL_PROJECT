@@ -387,7 +387,7 @@ At this point we have overall mean 'gross' salaries and mean prices for milk and
 2006:
 * average gross salary: 20753,79 CZK
 * health (4,5%) and social insurance (8%): total 2595 CZK
-* tax base: 20753,79-2595 = 18158,79 CZK rounded up to the nearest hundred: 18200 CZK
+* tax base: 20753,79-2595 rounded up to the nearest hundred: 18200 CZK
 * income tax: (18200-18200)*0.25+2715-600 (tax discount 600 CZK): 2115 CZK
 * net salary: 18158,79-2115 = 16 044 CZK (rounded up)
 
@@ -450,9 +450,9 @@ In order to group the calculations by food categories, it was necessary to set t
 
 'GROUP BY pf3.foodstuff_name'
 
-The final output was also ordered in ascending order by the newly calculated mean and foodstuff category name:
+The final output was also ordered in ascending order by the newly calculated mean:
 
-'ORDER BY mean_percentage_price_difference ASC, foodstuff_name ASC'
+'ORDER BY mean_percentage_price_difference ASC
 
 The SQL query to answer question 3 is now completed, and by executing it we get a list of groceries with their mean percentage year-to-year difference, which is ordered primarily by the level of this difference and secondarily by the name of each grocery.
 
