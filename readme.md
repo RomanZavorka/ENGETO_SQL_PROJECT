@@ -130,22 +130,22 @@ Since the tables have been merged through the 'UNION' clause and into separate c
 ### PRIMARY TABLE CREATION
 #### INTRODUCTION
 
-The primary table 't_roman_zavorka_project_sql_primary_final' containing data from both tables was created via the 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' clause, where 'CREATE' creates the table and if a table with that name already exists, the 'REPLACE' statement is activated to replace the existing table with the new one, allowing the table to be easily edited and updated if necessary. In our case, the table was created via an SQL query following the 'AS.' clause.
+The primary table 't_roman_zavorka_project_sql_primary_final' containing data from both tables was created via the 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' clause, where 'CREATE' creates the table and if a table with that name already exists, the 'REPLACE' statement is activated to replace the existing table with the new one, allowing the table to be easily edited and updated if necessary. In our case, the table was created via an SQL query following the 'AS' clause.
 
 As was described above in the analysis section, the creation of the resulting table was done through the 'UNION' clause merging two separate SQL queries; one for the 'czechia_payroll' table and the other for the 'czechia_price' table.
 
 #### QUERY FOR 'CZECHIA_PAYROLL'
-In the 'FROM' clause, the name of the corresponding czechia_payroll table (cp) from which the data was loaded was inserted. At the beginning all columns were displayed: 'SELECT *'.
+In the 'FROM' clause, the name of the corresponding 'czechia_payroll' table (cp) from which the data was loaded was inserted. At the beginning all columns were displayed: 'SELECT *'.
 
-Through the 'INNER JOIN' clause ('LEFT JOIN' can also be used), a supporting table 'czechia_payroll_industry_branch' (cpib) was joined containing a codebook to identify individual branches of industry from the 'cp.industry_branch_code' column. The table has been attached as follows:
+Through the 'INNER JOIN' clause ('LEFT JOIN' could also be used), a supporting table 'czechia_payroll_industry_branch' (cpib) was joined containing a codebook to identify individual branches of industry in the 'cp.industry_branch_code' column. The table has been joined as follows:
 
 "czechia_payroll_industry_branch (cpib) ON cp.industry_branch_code = cpib.code"
 
 The necessary values regarding the mean salary are found in the 'value' column, where we can also find, besides others, the values regarding the 'mean number of persons employed,' which are not needed, so through the 'WHERE' clause the records were limited to values regarding the salaries only: 
 
-'WHERE cp.value_type_code = 5958'(found in codebook 'czechia_payroll_value_type').
+'WHERE cp.value_type_code = 5958' (found in codebook 'czechia_payroll_value_type').
 
-Records that have 'NULL' values in the 'industry_branch_code' column were also observed, and so we do not know which industry they belong to. Since the industry information is relevant to us, these values were also excluded by adding an additional condition to the 'WHERE' clause: 
+Records with 'NULL' values in the 'industry_branch_code' column were also observed, and so we do not know which industry they belong to. Since the industry branch information is relevant to us, these values were also excluded by adding an additional condition to the 'WHERE' clause: 
 
 'AND cp.industry_branch_code IS NOT NULL.'
 
@@ -159,7 +159,7 @@ This averaging and grouping of all records, in addition to reducing the table si
 
 In addition to records, limitations were also made in the number of columns, where only three important columns were ultimately selected in the 'SELECT' clause:
 * cp.payroll_year - contains information about the period for which records are valid (the column name suits us as it is).
-* cpib.name AS industry_branch_name - the column with the names of industry sectors from the attached table (codebook)'czechia_payroll_industry_branch', so there is no need for the column 'cp.industry_branch_code' anymore.
+* cpib.name AS industry_branch_name - the column with the names of industry sectors from the attached table (codebook) 'czechia_payroll_industry_branch', so there is no need for the column 'cp.industry_branch_code' anymore.
 * round(avg(cp.value),2) AS mean_salary_czk - the column 'cp.value' containing values about gross salaries has been averaged and rounded to two decimal places via avg() and round() functions. Since the salary value is expressed in Czech crowns, the abbreviation 'czk' has been added to the name.	
 
 Now that the 'aliases' have been set, we can replace 'cpib.name' with 'industry_branch_name' in the GROUP BY clause:
@@ -172,9 +172,9 @@ The final output of this table was then ordered in descending order by year and 
 
 At this point, the result is a table with three columns: payroll_year, industry_branch_name and mean_salary_czk; the table range is 418 rows in total. The table shows us mean salaries in each year in each industry and is ordered in descending order by year and ascending order by industry name.
 #### QUERY FOR 'CZECHIA_PRICE'
-The table name 'czechia_price' (cpr) was inserted into the 'FROM' clause and initially all columns were displayed using SELECT *.
+The table name 'czechia_price' (cpr) was inserted into the 'FROM' clause and initially all columns were displayed using 'SELECT *'.
 
-Values regarding food prices are found in the 'value' column, (same name as in the czechia_payroll table), with foodstuff being identified only in the 'category_code' column.
+Values regarding food prices are found in the 'value' column, (same name as in the 'czechia_payroll' table), with foodstuff being identified only in the 'category_code' column.
 
 In order to clearly identify individual food categories, the table 'czechia_price_category' (cpc) containing the codebook was joined using the 'INNER JOIN' clause ('LEFT JOIN' can be used as well). The table was joined as follows:
 
@@ -194,7 +194,7 @@ In this case the column 'date_from' was selected:
 * Similarly, we performed the averaging and rounding of the values in the 'cpr.value' column as in the czechia_payroll table: round(avg(cpr.value),2) AS mean_price_czk.
 * The last column of this table was created by concatenating the 'cpc.price_value' and 'cpc.price_unit' columns from the joined table 'czechia_price_category' (cpc) using the concat() function: concat(cpc.price_value," ",cpc.price_unit) AS price_unit. This column specifies the quantity to which the prices of each food category are related (for example, the price for 0.5 liters of beer).
 
-As in the 'czechia_payroll' table, there are many records, so the food price values have been averaged and grouped by the 'GROUP BY' clause by year and food category: 
+As in the 'czechia_payroll' table, there are to many records, so the food price values have been averaged and grouped by the 'GROUP BY' clause by year and food category: 
 
 'GROUP BY price_year, foodstuff_name'
 
@@ -211,7 +211,6 @@ The first obstacle that stood in the way of the merging of the two tables was th
 
 czechia_payroll (the upper table):
  
-* SELECT 
 * cp.payroll_year, 
 * cpib.name AS industry_branch_name, 
 * round(avg(cp.value),2) AS mean_salary_czk,
@@ -222,7 +221,6 @@ czechia_payroll (the upper table):
 
 czechia_price (the lower table):
  
-* SELECT 
 * null, 
 * null, 
 * null, 
