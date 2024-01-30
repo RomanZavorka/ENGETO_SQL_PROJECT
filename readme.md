@@ -130,7 +130,7 @@ Since the tables have been merged through the 'UNION' clause and into separate c
 ### PRIMARY TABLE CREATION
 #### INTRODUCTION
 
-The primary table 't_roman_zavorka_project_sql_primary_final' containing data from both tables was created via the 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' clause, where 'CREATE' creates the table and if a table with that name already exists, the 'REPLACE' statement is activated to replace the existing table with the new one, allowing the table to be easily edited and updated if necessary. In our case, the table was created via an SQL query following the 'AS' clause.
+The primary table 't_roman_zavorka_project_SQL_primary_final' containing data from both tables was created via the 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_primary_final AS,' clause, where 'CREATE' creates the table and if a table with that name already exists, the 'REPLACE' statement is activated to replace the existing table with the new one, allowing the table to be easily edited and updated if necessary. In our case, the table was created via an SQL query following the 'AS' clause.
 
 As was described above in the analysis section, the creation of the resulting table was done through the 'UNION' clause merging two separate SQL queries; one for the 'czechia_payroll' table and the other for the 'czechia_price' table.
 
@@ -235,7 +235,7 @@ Even though both SQL queries have been ordered descending by year and ascending 
 
 'ORDER BY payroll_DESC, industry_branch_name ASC, price_year DESC, foodstuff_name ASC'
 
-Now, as already mentioned at the beginning, all that is now needed to do is just to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_sql_primary_final AS,' above the current query which will give the command to create or replace the table 't_roman_zavorka_project_sql_primary_final.'
+Now, as already mentioned at the beginning, all that is now needed to do is just to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_primary_final AS,' above the current query which will give the command to create or replace the table 't_roman_zavorka_project_SQL_primary_final.'
 
 ### SECONDARY TABLE CREATION
 #### INTRODUCTION
@@ -262,16 +262,18 @@ Now that the two tables have been successfully joined and the records have been 
 
 The objective is to provide data regarding GDP, GINI coefficient and population size in other European countries in specific years, this information can be found in the table 'economies.' From the table 'countries', some basic additional information about the countries has been added beyond the scope of the assignment. In the end, the following columns have been selected:
 
-* c.country - names of individual countries
-* c.capital_city - name of capital city
-* c.region_in_world - closer description of country localization
-* c.currency_code - local currency abbreviation
-* e.`year` - year for which the data is valid
-* e.GDP AS gdp - gross domestic product
-* e.gini - gini coefficient
-* e.population - data on population trend in years; column c.populaton from the second table does not show the population trend in years (it is fixed), so it was not selected.
+* c.country - names of individual countries.
+* c.capital_city - name of capital city.
+* c.region_in_world - closer description of country localization.
+* c.currency_code - local currency abbreviation.
+* e.`year` - year for which the data are valid.
+* e.GDP AS gdp - gross domestic product.
+* e.gini - gini coefficient.
+* e.population - data on population trend in years; column 'c.populaton' from the second table does not show the population trend in years (it is fixed), so it was not selected.
 
 That completes the SQL query to select the data for the secondary table. The resulting table consists of a total of 8 columns and its range is 945 records. The table provides us with some basic information about European countries (capital city, location on the continent, abbreviation of local currency) and the development of economic indicators GDP and gini and population in years between 2000 to 2020.
+
+Note: when creating secondary table locally, it has 945 records, while on 'data_academy_2023_12_06' it only had 840 records - perhabs they are missing some data? However GDP data for Czech Republic is intact.
 
 At this point, same as with the primary table, all that is now needed to do is to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_secondary_final AS' above the existing query which will give command to create or replace the table 't_roman_zavorka_project_SQL_secondary_final.'
 ### QUERY FOR QUESTION 1: 
