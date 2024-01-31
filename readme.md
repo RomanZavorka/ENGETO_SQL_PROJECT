@@ -432,7 +432,7 @@ After successful joining of table 'pf2' the following changes were made in the o
 * pf.foodstuff_name,
 * pf.mean_price_czk AS latter_mean_price_czk
 * pf2.mean_price_czk AS former_mean_price_czk
-* round((pf.mean_price_czk - pf2.mean_price_czk) / pf2.mean_price_czk*100,2) AS percentage_price_difference
+* round((pf.mean_price_czk - pf2.mean_price_czk) / pf2.mean_price_czk*100,2) AS annual_percentage_price_difference
 
 The selection above now displays the mean food prices and annual percentage differences of these mean prices between years. The records were then primarily ordered in descending order by year and then in ascending order by foodstuff category name in the first table:
 
@@ -444,7 +444,7 @@ Because the number of records displayed at this point is very large (315 rows in
 
 In order to calculate this overall mean percentage difference, the entire existing query was nested in a new 'FROM' clause ('pf3') and through a new outer 'SELECT' clause, the mean percentage difference for each foodstuff category was calculated:
 * pf3.foodstuff_name
-* round(avg(pf3.percentage_price_difference,2) AS mean_percentage_price_difference
+* round(avg(pf3.annual_percentage_price_difference,2) AS mean_annual_percentage_price_difference
 
 In order to group the calculations by food categories, it was necessary to set the 'GROUP BY' clause in our new outer query:
 
@@ -452,7 +452,7 @@ In order to group the calculations by food categories, it was necessary to set t
 
 The final output was also ordered in ascending order by the newly calculated mean:
 
-'ORDER BY mean_percentage_price_difference ASC
+'ORDER BY mean_annual_percentage_price_difference ASC
 
 The SQL query to answer question 3 is now completed, and by executing it we get a list of groceries with their mean percentage year-to-year price difference, which is ordered in ascending order by the level of this difference.
 
@@ -512,6 +512,8 @@ This completes the query to answer question 4. and running it shows us a summary
 ### QUERY FOR QUESTION 5: 
 Since the task requires us to find out whether the level of GDP and its changes influence the development of salaries and food prices, we needed to calculate the year-on-year percentage differences for salaries, food prices and GDP. To achieve this, supporting duplicate tables 'pf2', 'pf3' and the secondary table containing data regarding GDP 'sf' have been joined.
 
+Note: because we need to compare year-on-year differences in three different parameters, the 'percentage expression' is the most clear.
+
 As we need to calculate the percentage annual differences in salaries and food prices similarly to the previous query for question 4, the first part regarding the joining of the supporting tables 'pf2' and 'pf3' was basically the same, and so a large part of the query was taken over:
 
 Table 'pf2' is to be used to calculate the year-on-year salary difference, therefore columns regarding the year and the calculation of the mean salary were selected through the nested query:
@@ -522,6 +524,7 @@ Afterwards, the results were cleared of blank ('NULL'
 ) records and grouped by year:
 
 'WHERE mean_salary_czk IS NOT NULL'
+
 'GROUP BY payroll_year'
 
 At the moment, the nested query of the supporting table shows the total mean salaries for each year. The table was then joined using 'INNER JOIN' by common years, where an extra year was added to 'pf2' to shift its records one year back:
