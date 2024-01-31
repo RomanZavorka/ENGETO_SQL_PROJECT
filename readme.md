@@ -1,4 +1,18 @@
 # SQL PROJECT
+## FOREWORD
+In addition to this 'README' file containing details of the project, there are also 1-7 SQL scripts in the repository dedicated to this project:
+1. The first script contains a command to create a primary table (salaries and food prices).
+2. The second script contains a command to create a secondary table (additional data for other European countries).
+
+The remaining 5 scripts contain a command to display the result table to answer research questions, while SQL script number 3 instructs to display the result table to answer question number 1, SQL script number 4 for question number 2 and so on.
+
+Keep in mind that in order to display the results of SQL scripts 3-7, it is first necessary to create primary and secondary tables through SQL scripts 1 and 2, as they contain the necessary data for the results to be displayed (see the project assignment).
+
+This document is divided into the following four main sections, which are further subdivided into subsections:
+* Assignment: project assignment.
+* Analysis: a brief description of the input data for the creation of the primary table, the process and obstacles during the creation and a short description of the resulting table. 
+* Procedure: detailed description of creation of individual SQL scripts, including intermediate results and explanation of individual steps.
+* Results: description of results and answers to research questions.
 ## ASSIGNMENT
 ### INTRODUCTION TO THE PROJECT
 At your analytical department of an independent company that focuses on the standard of living of citizens, you have agreed to try to answer a few defined research questions that address the availability of basic foodstuffs to the general public. Colleagues have already defined the basic questions they will try to answer and provide this information to the press department. This department will present the results at the next conference focusing on this field.
@@ -6,13 +20,13 @@ To do this, they need you to prepare robust data documentation in which it will 
 As additional material, also prepare a table with GDP, GINI coefficient and population of other European countries in the same period as the primary overview for the Czech Republic.
 ### DATASETS THAT CAN BE USED TO OBTAIN A SUITABLE DATA BASE
 #### PRIMARY TABLES
-1. czechia_payroll - Information on salaries in different sectors over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
-2. czechia_payroll_calculation - Codebook of calculations in the payroll table.
-3. czechia_payroll_industry_branch - Codebook of industry in the payroll table.
-4. czechia_payroll_unit - Codebook of the unit of value in the payroll table.
-5. czechia_payroll_value_type - Codebook of value types in the payroll table.
-6. czechia_price - Information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
-7. czechia_price_category - Codebook of food categories that appear in our overview.
+1. czechia_payroll - information on salaries in different sectors over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
+2. czechia_payroll_calculation - codebook of calculations in the payroll table.
+3. czechia_payroll_industry_branch - codebook of industry in the payroll table.
+4. czechia_payroll_unit - codebook of the unit of value in the payroll table.
+5. czechia_payroll_value_type - codebook of value types in the payroll table.
+6. czechia_price - information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
+7. czechia_price_category - codebook of food categories that appear in our overview.
 #### CODEBOOKS OF SHARED INFORMATION ABOUT THE CZECH REPUBLIC
 1. czechia_region - Codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
 2. czechia_district - Codebook of districts of the Czech Republic according to the LAU standard.
@@ -38,33 +52,33 @@ Do not edit data in primary tables! If it is necessary to transform values, do s
 ### OVERVIEW OF SOURCE TABLES
 For the creation of the primary table, two main tables were available, to which the secondary tables - codebooks - were linked.
 
-czechia_payroll - Information on salaries in different sectors over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.  The table consists of 8 columns:
+czechia_payroll - information on salaries in different sectors over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.  The table consists of 8 columns:
 * id
-* value - Mean gross salaries and mean numbers of employees in industries.
-* value_type_code - Code of the type of value.
-* unit_code - Code of the unit in which the values are represented.
-* calculation_code - Code of the method of calculation of the value.
-* industry_branch_code.
-* payroll_year - Year for which the table records are valid.
-* payroll_quarter - The quarter for which the table records are valid.
+* value - mean gross salaries and mean numbers of employees in industries.
+* value_type_code - code of the type of value.
+* unit_code - code of the unit in which the values are represented.
+* calculation_code - code of the method of calculation of the value.
+* industry_branch_code - code of industry branch.
+* payroll_year - year for which the table records are valid.
+* payroll_quarter - the quarter for which the table records are valid.
 
 Several supplementary tables are linked to this table:
-* czechia_payroll_calculation - Codebook of calculations in the payroll table.
-* czechia_payroll_industry_branch - Codebook of industry in the payroll table.
-* czechia_payroll_unit - Codebook of the unit of value in the payroll table.
-* czechia_payroll_value_type - Codebook of value types in the payroll table.
+* czechia_payroll_calculation - codebook of calculations in the payroll table.
+* czechia_payroll_industry_branch - codebook of industry in the payroll table.
+* czechia_payroll_unit - codebook of the unit of value in the payroll table.
+* czechia_payroll_value_type - codebook of value types in the payroll table.
 
-czechia_price - Information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic. This table consists of 6 columns:
+czechia_price - information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic. This table consists of 6 columns:
 * id
-* value - Mean prices for each food category.
-* category_code - Food category code.
-* date_from - start of measurement
-* date_to - end of measurement
-* region_code - Region code.
+* value - mean prices for each food category.
+* category_code - food category code.
+* date_from - start of measurement.
+* date_to - end of measurement.
+* region_code - region code.
 
 The following supporting tables link to this table:
-* czechia_price_category - Codebook of food categories that appear in our overview.
-* czechia_region - Codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
+* czechia_price_category - codebook of food categories that appear in our overview.
+* czechia_region - codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
 
 ### PRIMARY TABLE CREATION
 
@@ -274,7 +288,7 @@ That completes the SQL query to select the data for the secondary table. The res
 Note: when creating secondary table locally (local server), it has 945 records, while on server 'data_academy_2023_12_06' it only had 840 records - perhabs its missing some of the data? However GDP data for Czech Republic is intact.
 
 At this point, same as with the primary table, all that is now needed to do is to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_secondary_final AS' above the existing query which will give command to create or replace the table 't_roman_zavorka_project_SQL_secondary_final.'
-### QUERY FOR QUESTION 1: 
+### QUERY FOR QUESTION 1
 In order to find out whether salaries in individual industry sectors are rising or declining, a column calculating the differences in salaries between years for each sector was created. This was accomplished by joining a duplicate table 'pf2.'
 
 The following columns were selected from our primary table 'pf' via a 'SELECT' clause:
@@ -314,7 +328,7 @@ The results were ordered in ascending order by name of industry branch and desce
 'ORDER BY pf.industry_branch_name ASC, pf.payroll_year DESC'
 
 The SQL query to answer question 1 is now complete and reveals us the mean salary values and their annual differences by year and industry sector and also whether there has been a decrease or increase in these salaries between years.
-### QUERY FOR QUESTION 2: 
+### QUERY FOR QUESTION 2
 Since the assignment refers to salaries in individual years in general and not by sector, it was necessary to calculate the overall mean salary from all sectors for each year.
 
 From the primary table 'pf' in the section regarding salaries 
@@ -342,7 +356,7 @@ The selection of the columns in the attached table 'pf2' was limited through a n
 * pf.foodstuff_name - food categories
 * pf.price_unit - quantity units
 
-The question specifies that the calculations are to be performed for the first and last comparable periods and only for the categories 'mléko' (milk) and 'chléb' (bread).
+The question specifies that the calculations are to be performed for the first and last comparable periods and only for the food categories milk ('mléko') and bread ('chléb').
 
 Note: for salaries, we have records available for years 2000-2021, while for foodstuff prices we only have records for years 2006-2018, so the first comparable period is 2006 and the last is 2018.
 
@@ -350,7 +364,7 @@ The records in the nested query have therefore been limited through the 'WHERE' 
 
 "WHERE pf.price_year IN (2006, 2018) AND (pf.foodstuff_name LIKE '%mléko%' OR pf.foodstuff_name LIKE '%chléb%')"
 
-Note: because the foodstuff names in the database we use are in Czech language, we have to work with Czech names in the 'WHERE' clause
+Note: because the foodstuff names in the database we use are in Czech language, we have to work with Czech names in the 'WHERE' clause.
 
 These conditions ensure that only records in year 2006 and 2018 are displayed, and at the same time only food categories with 'mléko' or 'chléb' in their name are displayed.
 
@@ -409,7 +423,7 @@ The output was afterwards ordered in descending order by year and ascending orde
 'ORDER BY pf.payroll_year DESC, pf2.foodstuff_name ASC'
 
 The SQL query for answering the question 2 is thereby completed and its output is a table with 4 records that tells us what the mean gross and net salaries and the mean prices of bread and milk were in years 2006 and 2018 and how much of these foodstuffs could be bought with the given salaries.
-### QUERY FOR QUESTION 3: 
+### QUERY FOR QUESTION 3
 In order to find out how food prices have been developing between years, annual differences were calculated from the mean annual prices for individual foodstuffs; the procedure in this case was similar to that used in query for question 1.
 
 From the primary table 'pf', columns providing information regarding year, food category name and mean price were selected via the 'SELECT' clause:
@@ -456,7 +470,7 @@ The final output was also ordered in ascending order by the newly calculated mea
 
 The SQL query to answer question 3 is now completed, and by executing it we get a list of groceries with their mean percentage year-to-year price difference, which is ordered in ascending order by the level of this difference.
 
-### QUERY FOR QUESTION 4: 
+### QUERY FOR QUESTION 4 
 Because the task requires us to determine whether there was a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10 %), we needed to calculate the year-on-year percentage differences for salaries and food prices. To achieve this, supporting duplicate tables 'pf2' and 'pf3' were joined first.
 
 The first of the two tables 'pf2' was used for the calculation of the annual differences in salaries between years, so the columns with information about the year and the calculation of the mean salary were selected through a nested query:
@@ -509,7 +523,7 @@ Now that all the necessary sub-calculations have been made, the year-on-year per
 Since the question is whether there is any year in which the annual increase in food prices was significantly higher than the increase in salaries, the difference was calculated in the following format: annual price difference % - annual salary difference %.
 
 This completes the query to answer question 4. and running it shows us a summary of the year-on-year percentage differences in mean prices and salaries, as well as the differences in these year-on-year differences between salaries and food prices.
-### QUERY FOR QUESTION 5: 
+### QUERY FOR QUESTION 5 
 Since the task requires us to find out whether the level of GDP and its changes influence the development of salaries and food prices, we needed to calculate the year-on-year percentage differences for salaries, food prices and GDP. To achieve this, supporting duplicate tables 'pf2', 'pf3' and the secondary table containing data regarding GDP 'sf' have been joined.
 
 Note: because we need to compare year-on-year differences in three different parameters, the 'percentage expression' is the most clear.
