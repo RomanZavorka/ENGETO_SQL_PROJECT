@@ -617,36 +617,39 @@ Now that these tables have been linked, the columns in the main 'SELECT' clause 
 * pf4.annual_percentage_price_difference-pf5.annual_percentage_price_difference AS annual_percentage_price_growth_difference
 * pf4.annual_percentage_gdp_difference
 
-This completes the query to answer question 5. The result is a summary of the percentage changes in salaries, food prices and GDP between years, as well as the differences in percentage increases (changes in growth or decline rates) between years.
+This completes the query to answer question 5. The result is a summary of the percentage changes in salaries, food prices and GDP between years, as well as the percentage differences in growth (or decline) rate in salaries and prices between years.
 
 ## RESULTS
 ### QUESTION 1
 Have salaries in all sectors been increasing over the years, or have they been declining in some?
 
 According to the available data, there are only four sectors in which salaries have been increasing continuously:
-* Doprava a skladov·nÌ (Transportation and Warehousing)
-* OstatnÌ Ëinnosti (Other activities)
-* ZdravotnÌ a soci·lnÌ pÈËe (Health and social work activities)
-* Zpracovatelsk˝ pr˘mysl (Manufacturing industries)
+* Transportation and Warehousing
+* Other activities
+* Health and social work activities
+* Manufacturing industries
 
 In the vast majority of the industries we analyzed, declines of different levels have been observed. These were mostly sudden, short-term declines (especially in year 2013), after which salaries started to rise again:
-* AdministrativnÌ a podp˘rnÈ Ëinnosti (Administrative and support activities)
-* »innosti v oblasti nemovitostÌ (Real estate activities)
-* InformaËnÌ a komunikaËnÌ Ëinnosti	 (Information and communication activities (IT))	
-* PenÏûnictvÌ a pojiöùovnictvÌ	(Financial and insurance activities)
-* ProfesnÌ, vÏdeckÈ a technickÈ Ëinnosti (Professional, scientific and technical activities)
-* TÏûba a dob˝v·nÌ (Mining and quarrying)
-* Ubytov·nÌ, stravov·nÌ a pohostinstvÌ (Accommodation, catering and food service activities)
-* Velkoobchod a maloobchod; opravy a ˙drûba motorov˝ch vozidel  (Wholesale and retail trade; repair and maintenance of motor vehicles)
-* V˝roba a rozvod elekt¯iny, plynu, tepla a klimatiz. vzduchu (Production and distribution of electricity, gas, heat and air conditioning)
-* Z·sobov·nÌ vodou; Ëinnosti souvisejÌcÌ s odpady a sanacemi (Water supply; waste management and sanitation activities)
+* Administrative and support activities
+* Real estate activities
+* Information and communication activities (IT)
+* Financial and insurance activities
+* Professional, scientific and technical activities
+* Mining and quarrying
+* Accommodation, catering and food service activities
+* Wholesale and retail trade; repair and maintenance of motor vehicles
+* Production and distribution of electricity, gas, heat and air conditioning
+* Water supply; waste management and sanitation activities
 
-We also observed several sectors where, among other things, a gradual decline in increase and following decline in salaries can be observed at the end of the period for which data are available; therefore, this may not be just a simple drop, but there may be a long term decline in salaries in future years:
-* KulturnÌ, z·bavnÌ a rekreaËnÌ Ëinnosti (Culture, entertainment and recreation activities)
-* stavebnictvÌ (Construction activities)
-* Ve¯ejn· spr·va a obrana; povinnÈ soci·lnÌ zabezpeËenÌ (Public administration and defence; mandatory social security)
-* VzdÏl·v·nÌ (Education)
-* ZemÏdÏlstvÌ, lesnictvÌ, ryb·¯stvÌ (Agriculture, forestry, fishing)
+We also observed several sectors where, among other things, a gradual decline in increase and following decline in salaries can be observed at the end of the period for which data is available; therefore, this may not be just a simple drop, but there may be a long term decline in salaries in future years:
+* Culture, entertainment and recreation activities
+* Construction industry
+* Public administration and defence; mandatory social security
+* Education
+* Agriculture, forestry, fishing
+
+Note: the names of individual sectors in the database used by us were originally in the Czech language and have therefore been freely translated.
+
 ### QUESTION 2
 How many liters of milk and kilograms of bread can be bought in the first and last comparable periods in the available data on prices and salaries?
 
@@ -654,27 +657,30 @@ In the first comparable period, that is in 2006, the mean net salary was (with t
 
 In the second comparable period in 2018, the mean net salary was (with the basic tax discount) 24 486 CZK. The average price per Kg of bread was 24,24 CZK and per litre of milk 19,82 CZK.
 
-Therefore, for a given salary in 2006, it was possible to buy 995,29 Kg of bread and 1111,08 litres of milk, while for a given salary in 2018 it was 1010.15 Kg of bread and 1235,42 litres of milk; therefore, in the second comparative period, it was possible to buy more of these given foods.
+Therefore, for a given salary in 2006, it was possible to buy 995,29 Kg of bread and 1111,08 litres of milk, while for a given salary in 2018 it was 1010,15 Kg of bread and 1235,42 litres of milk; therefore, in the second comparative period, it was possible to buy more of these given groceries.
 
-Note: it should be noted here that the value of net pay is also significantly affected by various tax discounts ( for example child, spouse etc.) and so for simplicity only the basic taxpayer discount has been applied.
+Note: it should be noted here that the value of net salary is significantly affected by various tax discounts (for example children, spouse etc.) and so for simplicity only the basic taxpayer discount has been applied.
 ### QUESTION 3
 Which category of food is increasing in price the slowest (has the lowest percentage annual increase)?
 
-In the results we can see that, on average, the prices of the vast majority of foods are increasing; the exceptions are 'krystalov˝ cukr' (crystal sugar) and 'Rajsk· jablka Ëerven· kulat·' (red round tomatoes), which are decreasing by -1.92% and -0.74% on average per year. 
+In the results we can see that, on average, the prices of the vast majority of foods are increasing; the exceptions are crystal sugar and tomatoes, which are decreasing by -1,92% and -0,74% on average per year. 
 
-Therefore, according to the data, the hypothetical food category that is 'slowest in price increase' is 'Ban·ny ûlutÈ' (yellow bananas), which on average increases in price by only 0.81% per year, followed by 'Vep¯ov· peËenÏ s kostÌ' (pork roast with bones) with 0.99% per year. 
+Therefore, according to the data, the hypothetical food category that is 'slowest in price increase' is banana (yellow), which on average increases in price by only 0,81% per year, followed by pork roast (with bone) with 0,99% per year. 
 
-In contrast, food with the fastest price increasing on average seems to be 'Papriky' (peppers): 7.29% per year, followed by 'M·slo' (butter): 6.68% per year. 
+In contrast, food with the fastest price increasing on average seems to be peppers: 7,29% per year, followed by butter: 6,68% per year.
+
+Note: in the database we use, the food category names are originally in Czech language, so they have been freely translated.
+
 ### QUESTION 4
 Is there a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10%)?
 
-According to the results so far, the largest increase in prices compared to the increase in salaries was observed between years 2013-2012, where prices increased by 5.1% while salaries decreased by -1.56%, so the total difference is 6.66% in favour of the increase in prices. Thus, in no year did the difference reach even 10%. 
+According to the results, the largest increase in prices compared to the increase in salaries was observed between years 2013-2012, where prices increased by 5,1% while salaries decreased by -1,56%, so the total difference is 6,66% in favour of the increase in prices. Thus, in no year did the difference reach even 10%. 
 
-On the other hand, the lowest or largest difference in favour of salaries was observed between 2009-2008, where salaries rose by 3.16% while food prices fell by -6.42% and the overall difference is therefore -9.58% in favour of salaries.
+On the other hand, the lowest or in other words largest difference in favour of salaries was observed between 2009-2008, where salaries rose by 3,16% while food prices fell by -6.42% and the overall difference is therefore -9.58% in favour of salaries.
 
-In the period 2010-2009, the increase in salaries was at the same rate as the increase in food prices: 1.95%.
+In the period 2010-2009, the increase in salaries was at the same rate as the increase in food prices: 1,95%.
 
-We can also observe that in these data the year 2013 is the only year where the mean annual percentage difference in salaries reached negative values; this is also confirmed by the results in results for question 1, where the vast majority of sectors showed a decrease in average salaries in this year.
+We can also observe that in these data the year 2013 is the only year where the mean annual percentage difference in salaries reached negative values; this is also confirmed by the results for question 1, where the vast majority of sectors showed a decrease in average salaries in this year.
 ### QUESTION 5
 Does the GDP level affect changes in salaries and food prices? Or, if GDP rises more significantly in one year, does this result in a more significant rise in food prices or salaries in the same or the following year?
 
@@ -688,5 +694,5 @@ As with food prices, some response to GDP development can be seen in salaries, b
 
 In 2009-2008, when the decline in GDP was the largest (-4.66%), salaries in this and the following period only experienced a decline in the growth rate (-4.71% and -1.21%), which eventually started to recover. The decline in salaries was only observed in the period 2013-2012, when salaries fell by -1.56%, whereas in this and the previous period only slight declines in GDP (-0.05% and -0.79%) were observed in general, and it is therefore a question of whether this decline in salaries was due to these two milder declines or whether it was a delayed response to the strong decline in GDP of 2009-2008. In the following years, as GDP started to pick up again and growth accelerated, the growth in salaries started to accelerate as well.
 
-From the data so far, it appears that the rate of GDP growth or decline affects the development of prices and salaries, so if GDP falls or rises significantly, it is very likely that there will be a fall or rise in salaries and food prices, or at least a change in the rate of growth or decline, but that effect may not occur until some time has passed. 
+From the data so far, it appears that the growth or decline of GDP affects the development of prices and salaries, so if GDP falls or rises significantly, it is very likely that there will be a fall or rise in salaries and food prices, or at least a change in the rate of growth or decline, but that effect may not occur until some time has passed. 
 
