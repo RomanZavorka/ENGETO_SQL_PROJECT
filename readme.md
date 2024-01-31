@@ -352,6 +352,8 @@ The records in the nested query have therefore been limited through the 'WHERE' 
 
 "WHERE pf.price_year IN (2006, 2018) AND (pf.foodstuff_name LIKE '%mléko%' OR pf.foodstuff_name LIKE '%chléb%')"
 
+Note: because the foodstuff names in the database we use are in Czech language, we have to work with Czech names in the 'WHERE' clause
+
 These conditions ensure that only records in year 2006 and 2018 are displayed, and at the same time only food categories with 'mléko' or 'chléb' in their name are displayed.
 
 The nested query is now complete and its execution shows us a table with 4 columns and 4 records: mean prices for 1 kg of bread (chléb) and 1 liter of milk (mléko) in year 2006 and 2018.
@@ -558,7 +560,7 @@ Note: The 'INNER JOIN' ensures here that the final outputs are limited to the co
 
 Note: similar to the previous task (query for question 4), some of the calculations (averaging and grouping) were already done within the supporting tables to increase the speed of running the whole query.
 
-Now that duplicate tables 'pf2' and 'pf3' have been joined, it is time to join the secondary table (t_roman_zavorka_project_sql_secondary_final) 'sf,' containing data regarding the development of GDP in years:
+Now that duplicate tables 'pf2' and 'pf3' have been joined, it is time to join the secondary table (t_roman_zavorka_project_SQL_secondary_final) 'sf,' containing data regarding the development of GDP in years:
 
 As the calculations of the percentage annual differences in GDP are relatively simple (there is no need to calculate means or to group the data), they were calculated directly in the nested query through the following columns:
 * sf11.`year`
