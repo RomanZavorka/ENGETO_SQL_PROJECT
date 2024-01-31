@@ -556,17 +556,17 @@ Table 'pf3' was afterwards joined through an 'INNER JOIN' to table 'pf' through 
 
 'ON pf.payroll_year = pf3.price_year'
 
-Note: The 'INNER JOIN' ensures here that the final outputs are limited to the common comparable periods for both prices and salaries (2006-2018).
+Note: the 'INNER JOIN' ensures here that the final outputs are limited to the common comparable periods for both prices and salaries (2006-2018).
 
 Note: similar to the previous task (query for question 4), some of the calculations (averaging and grouping) were already done within the supporting tables to increase the speed of running the whole query.
 
-Now that duplicate tables 'pf2' and 'pf3' have been joined, it is time to join the secondary table (t_roman_zavorka_project_SQL_secondary_final) 'sf,' containing data regarding the development of GDP in years:
+Now that duplicate tables 'pf2' and 'pf3' have been joined, it is time to join the secondary table ('t_roman_zavorka_project_SQL_secondary_final') 'sf,' containing data regarding the development of GDP in years.
 
 As the calculations of the percentage annual differences in GDP are relatively simple (there is no need to calculate means or to group the data), they were calculated directly in the nested query through the following columns:
 * sf11.`year`
 * round((sf11.gdp - sf12.gdp) / sf12.gdp*100,2) AS annual_percentage_hdp_difference
 
-However, in order to calculate the percentage annual differences in GDP, it was necessary to join the supporting duplicate table 'sf12' first ('sf11' is the first of the tables); following columns have been selected:
+However, in order to calculate the percentage annual differences in GDP, it was necessary to join the supporting duplicate table 'sf12' to this nested query first ('sf11' is the first of the tables); following columns have been selected:
 * country
 * `year`
 * gdp
@@ -579,7 +579,7 @@ The inner table 'sf12' containing the GDP values in years for the Czech Republic
 
 'ON sf11.`year` = sf12.`year` +1 AND sf11.country = sf12.country'
 
-Note: 'INNER JOIN' limits the records according to the selection in the inner table 'sf12' , that is records only for the Czech Republic.
+Note: 'INNER JOIN' limits the records according to the selection in the inner table 'sf12', that is records only for the Czech Republic.
 
 At this point, the nested query for the 'sf' table is complete and running it shows us the percentage annual differences in GDP for the Czech Republic. The 'sf' table was then joined to the 'pf' table via 'INNER JOIN' ('LEFT JOIN' could also be used) through common years:
 
@@ -610,7 +610,7 @@ To achieve this, our existing query was nested into a new 'outer' query in the '
 'LEFT JOIN' was used to keep a record in the first year where the result is missing in the calculation of the change in growth rate.
 
 Now that these tables have been linked, the columns in the main 'SELECT' clause have been set as follows:
-* time_period
+* pf4.time_period
 * pf4.annual_percentage_salary_difference
 * pf4.annual_percentage_salary_difference-pf5.annual_percentage_salary_difference AS annual_percentage_salary_growth_difference
 * pf4.annual_percentage_price_difference
