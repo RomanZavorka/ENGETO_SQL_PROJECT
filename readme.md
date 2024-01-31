@@ -5,7 +5,7 @@ At your analytical department of an independent company that focuses on the stan
 To do this, they need you to prepare robust data documentation in which it will be possible to see comparisons of food availability based on average incomes over a certain period of time.
 As additional material, also prepare a table with GDP, GINI coefficient and population of other European countries in the same period as the primary overview for the Czech Republic.
 ### DATASETS THAT CAN BE USED TO OBTAIN A SUITABLE DATA BASE
-#### PRIMARY TABLES:
+#### PRIMARY TABLES
 1. czechia_payroll - Information on salaries in different sectors over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
 2. czechia_payroll_calculation - Codebook of calculations in the payroll table.
 3. czechia_payroll_industry_branch - Codebook of industry in the payroll table.
@@ -13,10 +13,10 @@ As additional material, also prepare a table with GDP, GINI coefficient and popu
 5. czechia_payroll_value_type - Codebook of value types in the payroll table.
 6. czechia_price - Information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
 7. czechia_price_category - Codebook of food categories that appear in our overview.
-#### CODEBOOKS OF SHARED INFORMATION ABOUT THE CZECH REPUBLIC:
+#### CODEBOOKS OF SHARED INFORMATION ABOUT THE CZECH REPUBLIC
 1. czechia_region - Codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
 2. czechia_district - Codebook of districts of the Czech Republic according to the LAU standard.
-#### ADDITIONAL TABLES:
+#### ADDITIONAL TABLES
 1. countries - All kinds of information about countries in the world, for example capital city, currency, national food or mean height of population.
 2. economies - GDP, GINI, tax incidence, etc. for a given country and year.
 #### RESEARCH QUESTIONS
@@ -260,18 +260,16 @@ The second condition is that the records are supposed to be for the same period 
 
 Now that the two tables have been successfully joined and the records have been limited according to our needs, the columns in the resulting table are to be specified using the 'SELECT' clause.
 
-The objective is to provide data regarding GDP, GINI coefficient and population size in other European countries in specific years, this information can be found in the table 'economies.' From the table 'countries', some basic additional information about the countries has been added beyond the scope of the assignment. In the end, the following columns have been selected:
+The objective is to provide data regarding GDP, GINI coefficient and population height in other European countries in specific years, this information can be found in the table 'economies.' From the table 'countries', the names a closer description of localization of individual countries have been added. In the end, the following columns have been selected:
 
 * c.country - names of individual countries.
-* c.capital_city - name of capital city.
 * c.region_in_world - closer description of country localization.
-* c.currency_code - local currency abbreviation.
 * e.`year` - year for which the data are valid.
 * e.GDP AS gdp - gross domestic product.
 * e.gini - gini coefficient.
 * e.population - data on population trend in years; column 'c.populaton' from the second table does not show the population trend in years (it is fixed), so it was not selected.
 
-That completes the SQL query to select the data for the secondary table. The resulting table consists of a total of 8 columns and its range is 945 records. The table provides us with some basic information about European countries (capital city, location on the continent, abbreviation of local currency) and the development of economic indicators GDP and gini and population in years between 2000 to 2020.
+That completes the SQL query to select the data for the secondary table. The resulting table consists of a total of 6 columns and its range is 945 records. The table provides us with information about geographical location and the development of economic indicators GDP and gini and population for European countries in years between 2000 to 2020.
 
 Note: when creating secondary table locally (local server), it has 945 records, while on server 'data_academy_2023_12_06' it only had 840 records - perhabs its missing some of the data? However GDP data for Czech Republic is intact.
 
@@ -676,7 +674,7 @@ Is there a year in which the annual increase in food prices was significantly hi
 
 According to the results, the largest increase in prices compared to the increase in salaries was observed between years 2013-2012, where prices increased by 5,1% while salaries decreased by -1,56%, so the total difference is 6,66% in favour of the increase in prices. Thus, in no year did the difference reach even 10%. 
 
-On the other hand, the lowest or in other words largest difference in favour of salaries was observed between 2009-2008, where salaries rose by 3,16% while food prices fell by -6.42% and the overall difference is therefore -9.58% in favour of salaries.
+On the other hand, the lowest or in other words largest difference in favour of salaries was observed between 2009-2008, where salaries rose by 3,16% while food prices fell by -6,42% and the overall difference is therefore -9,58% in favour of salaries.
 
 In the period 2010-2009, the increase in salaries was at the same rate as the increase in food prices: 1,95%.
 
@@ -684,15 +682,15 @@ We can also observe that in these data the year 2013 is the only year where the 
 ### QUESTION 5
 Does the GDP level affect changes in salaries and food prices? Or, if GDP rises more significantly in one year, does this result in a more significant rise in food prices or salaries in the same or the following year?
 
-If we look at the changes in GDP over the years, we can see that for most years GDP has been growing, however, the exceptions are the periods 2009-2008 which shows a fairly significant decline of -4.66% and also smaller declines of -0.79% and -0.05% in the periods 2012-2011 and 2013-2012.
+If we look at the changes in GDP over the years, we can see that for most years GDP has been growing, however, the exceptions are the periods 2009-2008 which shows a fairly significant decline of -4,66% and also smaller declines of -0,79% and -0,05% in the periods 2012-2011 and 2013-2012.
 
-Comparing the development of GDP and the development of food prices, we can notice that at some points prices develop similarly to GDP, especially in 2007, 2008, and 2009, where GDP growth slows down and then it starts to fall (-4.66%), as do food prices (-6.42%). Then in 2010 and 2011, when GDP starts to grow again, prices also rise.
+Comparing the development of GDP and the development of food prices, we can notice that at some points prices develop similarly to GDP, especially in 2007, 2008, and 2009, where GDP growth slows down and then it starts to fall (-4,66%), as do food prices (-6,42%). Then in 2010 and 2011, when GDP starts to grow again, prices also rise.
 
-However, a change occurs in the periods 2012-2011 and 2013-2012, where GDP falls again, but more slightly (-0.05% and -0.79%) -> food price growth starts to slow down first, and only in the periods 2015-2014 and 2016-2015 do food prices fall (-0.55% and -1.19%), while GDP rises again by this time. After these delayed declines, food prices start to rise again, but the rate of increase oscillates strangely.
+However, a change occurs in the periods 2012-2011 and 2013-2012, where GDP falls again, but more slightly (-0,05% and -0,79%) -> food price growth starts to slow down first, and only in the periods 2015-2014 and 2016-2015 do food prices fall (-0,55% and -1,19%), while GDP rises again by this time. After these delayed declines, food prices start to rise again, but the rate of increase oscillates strangely.
 
 As with food prices, some response to GDP development can be seen in salaries, but it does not seem to be as visible. Except for the period 2013-2012, salaries are steadily rising.
 
-In 2009-2008, when the decline in GDP was the largest (-4.66%), salaries in this and the following period only experienced a decline in the growth rate (-4.71% and -1.21%), which eventually started to recover. The decline in salaries was only observed in the period 2013-2012, when salaries fell by -1.56%, whereas in this and the previous period only slight declines in GDP (-0.05% and -0.79%) were observed in general, and it is therefore a question of whether this decline in salaries was due to these two milder declines or whether it was a delayed response to the strong decline in GDP of 2009-2008. In the following years, as GDP started to pick up again and growth accelerated, the growth in salaries started to accelerate as well.
+In 2009-2008, when the decline in GDP was the largest (-4,66%), salaries in this and the following period only experienced a decline in the growth rate (-4,71% and -1,21%), which eventually started to recover. The decline in salaries was only observed in the period 2013-2012, when salaries fell by -1,56%, whereas in this and the previous period only slight declines in GDP (-0,05% and -0,79%) were observed in general, and it is therefore a question of whether this decline in salaries was due to these two milder declines or whether it was a delayed response to the strong decline in GDP of 2009-2008. In the following years, as GDP started to pick up again and growth accelerated, the growth in salaries started to accelerate as well.
 
 From the data so far, it appears that the growth or decline of GDP affects the development of prices and salaries, so if GDP falls or rises significantly, it is very likely that there will be a fall or rise in salaries and food prices, or at least a change in the rate of growth or decline, but that effect may not occur until some time has passed. 
 
