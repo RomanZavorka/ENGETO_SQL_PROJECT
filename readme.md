@@ -26,7 +26,7 @@ As additional material, also prepare a table with GDP, GINI coefficient and popu
 4. Is there a year in which the annual increase in food prices was significantly higher than the increase in salaries (greater than 10%)?
 5. Does the GDP level affect changes in salaries and food prices? Or, if GDP rises more significantly in one year, does this result in a more significant rise in food prices or salaries in the same or the following year?
 #### PROJECT OUTPUT
-Help your colleagues with the given task. The output should be two tables in a database from which the required data can be obtained. Name the tables  t_{jmeno}_{prijmeni}_project_SQL_primary_final (for salary and food prices data for the Czech Republic united to the same comparable period - common years) and t_{jmeno}_{prijmeni}_project_SQL_secondary_final (for additional data on other European countries).
+Help your colleagues with the given task. The output should be two tables in a database from which the required data can be obtained. Name the tables  t_jmeno_prijmeni_project_SQL_primary_final (for salary and food prices data for the Czech Republic united to the same comparable period - common years) and t_jmeno_prijmeni_project_SQL_secondary_final (for additional data on other European countries).
 
 Next, prepare a set of SQL to obtain data from the tables you have prepared to answer the research questions. Note that the questions/hypotheses can both support and refute your outputs! It depends on what the data show.
 
