@@ -1,7 +1,7 @@
 # SQL PROJECT
 ## FOREWORD
 In addition to this 'README' file containing details of the project, there are also 1-7 SQL scripts in the repository dedicated to this project:
-1. The first script contains a command to create a primary table (salaries and food prices).
+1. The first script contains a command to create a primary table (data regarding salaries and food prices).
 2. The second script contains a command to create a secondary table (additional data for other European countries).
 
 The remaining 5 scripts contain a command to display the result table to answer research questions, while SQL script number 3 instructs to display the result table to answer question number 1, SQL script number 4 for question number 2 and so on.
@@ -11,7 +11,7 @@ Keep in mind that in order to display the results of SQL scripts 3-7, it is firs
 This document is divided into the following four main sections, which are further subdivided into subsections:
 * Assignment: project assignment.
 * Analysis: a brief description of the input data for the creation of the primary table, the process and obstacles during the creation and a short description of the resulting table. 
-* Procedure: detailed description of creation of individual SQL scripts, including intermediate results and explanation of individual steps.
+* Procedure: detailed description of creation of individual SQL scripts, including intermediate results and explanation of individual steps and description of the final output.
 * Results: description of results and answers to research questions.
 ## ASSIGNMENT
 ### INTRODUCTION TO THE PROJECT
@@ -28,10 +28,10 @@ As additional material, also prepare a table with GDP, GINI coefficient and popu
 6. czechia_price - information on prices of selected foodstuffs over a multi-year period. The dataset comes from the Open Data Portal of the Czech Republic.
 7. czechia_price_category - codebook of food categories that appear in our overview.
 #### CODEBOOKS OF SHARED INFORMATION ABOUT THE CZECH REPUBLIC
-1. czechia_region - Codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
-2. czechia_district - Codebook of districts of the Czech Republic according to the LAU standard.
+1. czechia_region - codebook of regions of the Czech Republic according to the CZ-NUTS 2 standard.
+2. czechia_district - codebook of districts of the Czech Republic according to the LAU standard.
 #### ADDITIONAL TABLES
-1. countries - All kinds of information about countries in the world, for example capital city, currency, national food or mean height of population.
+1. countries - all kinds of information about countries in the world, for example capital city, currency, national food or mean height of population.
 2. economies - GDP, GINI, tax incidence, etc. for a given country and year.
 #### RESEARCH QUESTIONS
 1. Have salaries in all sectors been increasing over the years, or have they been declining in some?
@@ -104,11 +104,11 @@ In the 'czechia_price' table, 'NULL' values were observed only in the 'region_co
 
 Another problem was the extent of the tables, especially 'czechia_price' which has a total of 108 249 records. 'czechia_payroll' had 3 268 of the original 6 880 records after eliminating unnecessary records. The records of both tables have therefore been averaged and grouped (by year and industry sector / food category), thus reducing their size significantly: 'czechia_payroll' to 418 and 'czechia_price' to 342. With these reduced scopes, all operations with these tables shall be significantly faster and their data easier to comprehend. 
 
-Another obstacle was also finding a way to pair the data of the two tables. The tables are basically independent of each other, and the only common feature is the time of measurement - the year. In the 'czechia_payroll' table, this information was contained in the column 'payroll_year.' In the 'czechia_price' table, it was the columns 'date_to' and 'date_from' that contained the full date, where the year was always the same in both columns, so any of the columns could be used.
+Another obstacle was also finding a way to pair the data of the two tables. The tables are basically independent of each other, and the only common feature is the time of measurement - the year. In the 'czechia_payroll' table, this information is contained in the column 'payroll_year.' In the 'czechia_price' table, it is the columns 'date_to' and 'date_from' that contain the full date, where the year is always the same in both columns, so any of the columns could be used.
 
 It is also important to note that the tables do not have the same range of years for which the records are valid: the 'czechia_payroll' table contains records for the years 2000-2021, while the 'czechia_price' table only contains records for the years 2006-2018. Therefore, the tables can only be compared with each other between 2006 and 2018.
 
-In addition to limiting the records (rows), our effort was also to limit the number of columns, where in the 'czechia_payroll' table only three columns containing the following information were finally selected:
+In addition to limiting the records (rows), our effort was also to limit the number of columns, where in the 'czechia_payroll' table only three columns containing the following information were selected in the end:
 * information about year - payroll_year
 * industry branch name - cpib.name (from joined codebook 'czechia_payroll_industry_branch')
 * mean gross salary - value (averaged and rounded afterwards)
@@ -127,7 +127,7 @@ Therefore, the connection of the two mentioned tables was made through the 'UNIO
 
 Since only tables with the same number of columns can be joined via 'UNION' clause, it was necessary to balance the number of columns. In our case this was achieved by inserting additional 'NULL' columns containing empty values. These 'NULL' columns were inserted into both tables so that the records of both tables had their own separate columns (to be more explained in the 'procedure' section). 
 ### PRIMARY TABLE OUTPUT
-The result of our efforts is the table "t_roman_zavorka_project_sql_primary_final" with a range of 760 records and a total of 7 columns:
+The result of our efforts is the table "t_roman_zavorka_project_SQL_primary_final" with a range of 760 records and a total of 7 columns:
 * payroll_year - information about the year for which the salary records are valid.
 * industry_branch_name - the name of the industry sector.
 * mean_salary_czk - average gross salaries by year and industry sector.
@@ -153,7 +153,7 @@ In the 'FROM' clause, the name of the corresponding 'czechia_payroll' table (cp)
 
 Through the 'INNER JOIN' clause ('LEFT JOIN' could also be used), a supporting table 'czechia_payroll_industry_branch' (cpib) was joined containing a codebook to identify individual branches of industry in the 'cp.industry_branch_code' column. The table has been joined as follows:
 
-"czechia_payroll_industry_branch (cpib) ON cp.industry_branch_code = cpib.code"
+"czechia_payroll_industry_branch cpib ON cp.industry_branch_code = cpib.code"
 
 The necessary values regarding the mean salary are found in the 'value' column, where we can also find, besides others, the values regarding the 'mean number of persons employed,' which are not needed, so through the 'WHERE' clause the records were limited to values regarding the salaries only: 
 
@@ -192,7 +192,7 @@ Values regarding food prices are found in the 'value' column, (same name as in t
 
 In order to clearly identify individual food categories, the table 'czechia_price_category' (cpc) containing the codebook was joined using the 'INNER JOIN' clause ('LEFT JOIN' can be used as well). The table was joined as follows:
 
-'czechia_price_category (cpc) ON cp.category_code = cpc.code'
+'czechia_price_category cpc ON cpr.category_code = cpc.code'
 
 With the exception of the 'region_code' column, the records are complete and do not contain 'NULL' values. Since the data in the following tasks is processed for the country as a whole, the information about the region in the 'region_code' column is not important. At the end, it is not necessary to limit the record range in this table.
 
@@ -206,7 +206,7 @@ In this case the column 'date_from' was selected:
 * year(cpr.date_from) AS price_year
 * The next column was chosen from the attached table 'czechia_price_category' (cpc) providing the name of the food category: cpc.name AS foodstuff_name - ( therefore the column cpr.category_code is no longer needed).
 * Similarly, we performed the averaging and rounding of the values in the 'cpr.value' column as in the czechia_payroll table: round(avg(cpr.value),2) AS mean_price_czk.
-* The last column of this table was created by concatenating the 'cpc.price_value' and 'cpc.price_unit' columns from the joined table 'czechia_price_category' (cpc) using the concat() function: concat(cpc.price_value," ",cpc.price_unit) AS price_unit. This column specifies the quantity to which the prices of each food category are related (for example, the price for 0.5 liters of beer).
+* The last column of this table was created by concatenating the 'cpc.price_value' and 'cpc.price_unit' columns from the joined table 'czechia_price_category' (cpc) using the concat() function: concat(cpc.price_value," ",cpc.price_unit) AS price_unit. This column specifies the quantity to which the prices of each food category are related (for example, the price for 0,5 liters of beer).
 
 As in the 'czechia_payroll' table, there are to many records, so the food price values have been averaged and grouped by the 'GROUP BY' clause by year and food category: 
 
@@ -251,6 +251,8 @@ Even though both SQL queries have been ordered descending by year and ascending 
 
 Now, as already mentioned at the beginning, all that is now needed to do is just to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_primary_final AS,' above the current query which will give the command to create or replace the table 't_roman_zavorka_project_SQL_primary_final.'
 
+See 'PRIMARY TABLE OUTPUT' in the 'ANALYSIS' section for description of the resulting primary table.
+
 ### SECONDARY TABLE CREATION
 #### INTRODUCTION
 Similar to the primary table, the secondary table was created through the 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_secondary_final AS' clause, which creates or replaces the t_roman_zavorka_project_SQL_secondary_final table from the SQL query following the 'AS' part of the clause.
@@ -274,7 +276,7 @@ The second condition is that the records are supposed to be for the same period 
 
 Now that the two tables have been successfully joined and the records have been limited according to our needs, the columns in the resulting table are to be specified using the 'SELECT' clause.
 
-The objective is to provide data regarding GDP, GINI coefficient and population height in other European countries in specific years, this information can be found in the table 'economies.' From the table 'countries', the names a closer description of localization of individual countries have been added. In the end, the following columns have been selected:
+The objective is to provide data regarding GDP, GINI coefficient and population height in other European countries in specific years, this information can be found in the table 'economies.' From the table 'countries', the names and closer description of localization of individual countries have been added. In the end, the following columns have been selected:
 
 * c.country - names of individual countries.
 * c.region_in_world - closer description of country localization.
@@ -285,7 +287,7 @@ The objective is to provide data regarding GDP, GINI coefficient and population 
 
 That completes the SQL query to select the data for the secondary table. The resulting table consists of a total of 6 columns and its range is 945 records. The table provides us with information about geographical location and the development of economic indicators GDP and gini and population for European countries in years between 2000 to 2020.
 
-Note: when creating secondary table locally (local server), it has 945 records, while on server 'data_academy_2023_12_06' it only had 840 records - perhabs its missing some of the data? However GDP data for Czech Republic is intact.
+Note: when creating secondary table locally (on local server), it has 945 records, while on server 'data_academy_2023_12_06' it has only 840 records. However essential GDP data for Czech Republic is intact.
 
 At this point, same as with the primary table, all that is now needed to do is to add the clause 'CREATE OR REPLACE TABLE t_roman_zavorka_project_SQL_secondary_final AS' above the existing query which will give command to create or replace the table 't_roman_zavorka_project_SQL_secondary_final.'
 ### QUERY FOR QUESTION 1
@@ -294,7 +296,7 @@ In order to find out whether salaries in individual industry sectors are rising 
 The following columns were selected from our primary table 'pf' via a 'SELECT' clause:
 * pf.payroll_year - the years for which the salary records are valid
 * pf.industry_branch_name - industry sector name
-* pf.mean_salary_en - mean salaries
+* pf.mean_salary_czk - mean salaries
 
 In order to calculate the annual salary differences, a duplicate table 'pf2' was joined to our table using the 'INNER JOIN' clause, which was similarly limited to the same columns as the first table 'pf' through a nested query. 
 
@@ -304,7 +306,7 @@ The tables were linked through common years and matching industry:
 
 To the year in the second table 'pf2', +1 was added to shift all its records one year back. 'INNER JOIN' was chosen for the linking to exclude unwanted 'NULL' values in the second table resulting from shifting records a year back in year 2000 (1999 is not available). 
 
-The 'INNER JOIN' also ensures that the selected columns will not display 'NULL' values resulting from the merging of the 'czechia_payroll' and 'czechia_price' tables through the 'UNION' clause (see 'PRIMARY TABLE CREATION').
+The 'INNER JOIN' also ensures that the selected columns will not display 'NULL' values resulting from the merging of the 'czechia_payroll' and 'czechia_price' tables through the 'UNION' clause (see 'ANALYSIS' section).
 
 After successful joining of two tables, the fields (columns) in the outer 'SELECT' clause were set as follows:
 * pf2.payroll_year was concatenated to the first column 'pf.payroll_year' via concat(): 'concat(pf.payroll_year," - ", pf2.payroll_year) AS time_period'
@@ -332,7 +334,7 @@ The SQL query to answer question 1 is now complete and reveals us the mean salar
 Since the assignment refers to salaries in individual years in general and not by sector, it was necessary to calculate the overall mean salary from all sectors for each year.
 
 From the primary table 'pf' in the section regarding salaries 
-the column containing the year and the column calculating the mean of the salaries rounded to two decimal places was selected in the 'SELECT' clause:
+the column containing information about the year and the column calculating the mean of the salaries rounded to two decimal places were selected in the 'SELECT' clause:
 * pf.payroll_year
 * round(avg(pf.mean_salary_czk),2) AS mean_salary_czk
 
@@ -366,7 +368,7 @@ The records in the nested query have therefore been limited through the 'WHERE' 
 
 Note: because the foodstuff names in the database we use are in Czech language, we have to work with Czech names in the 'WHERE' clause.
 
-These conditions ensure that only records in year 2006 and 2018 are displayed, and at the same time only food categories with 'mléko' or 'chléb' in their name are displayed.
+These conditions ensure that only records in year 2006 and 2018 are displayed, and at the same time only food categories with 'mléko' (milk) or 'chléb' (bread) in their name are displayed.
 
 The nested query is now complete and its execution shows us a table with 4 columns and 4 records: mean prices for 1 kg of bread (chléb) and 1 liter of milk (mléko) in year 2006 and 2018.
 
@@ -422,7 +424,7 @@ The output was afterwards ordered in descending order by year and ascending orde
 
 'ORDER BY pf.payroll_year DESC, pf2.foodstuff_name ASC'
 
-The SQL query for answering the question 2 is thereby completed and its output is a table with 4 records that tells us what the mean gross and net salaries and the mean prices of bread and milk were in years 2006 and 2018 and how much of these foodstuffs could be bought with the given salaries.
+The SQL query for answering the question 2 is thereby completed and its output is a table with 7 columns and 4 records that tells us what the mean gross and net salaries and the mean prices of bread and milk were in years 2006 and 2018 and how much of these foodstuffs could be bought with the given salaries.
 ### QUERY FOR QUESTION 3
 In order to find out how food prices have been developing between years, annual differences were calculated from the mean annual prices for individual foodstuffs; the procedure in this case was similar to that used in query for question 1.
 
@@ -638,8 +640,8 @@ Have salaries in all sectors been increasing over the years, or have they been d
 According to the available data, there are only four sectors in which salaries have been increasing continuously:
 * Transportation and Warehousing
 * Other activities
-* Health and social work activities
-* Manufacturing industries
+* Health and social care
+* Manufacturing industry
 
 In the vast majority of the industries we analyzed, declines of different levels have been observed. These were mostly sudden, short-term declines (especially in year 2013), after which salaries started to rise again:
 * Administrative and support activities
@@ -671,7 +673,7 @@ In the second comparable period in 2018, the mean net salary was (with the basic
 
 Therefore, for a given salary in 2006, it was possible to buy 995,29 Kg of bread and 1111,08 litres of milk, while for a given salary in 2018 it was 1010,15 Kg of bread and 1235,42 litres of milk; therefore, in the second comparative period, it was possible to buy more of these given groceries.
 
-Note: it should be noted here that the value of net salary is significantly affected by various tax discounts (for example children, spouse etc.) and so for simplicity only the basic taxpayer discount has been applied.
+Note: it should be noted here that the value of net salary is significantly affected by various tax discounts (for example for children, spouse etc.) and so for simplicity only the basic taxpayer discount has been applied.
 ### QUESTION 3
 Which category of food is increasing in price the slowest (has the lowest percentage annual increase)?
 
