@@ -1,6 +1,6 @@
 # SQL PROJECT
 ## FOREWORD
-(Contact on discord: romanz90)
+(Name on Discord: romanz90)
 
 In addition to this 'README' file containing details of the project, there are also 1-7 SQL scripts in the repository dedicated to this project:
 1. The first script contains a command to create a primary table (data regarding salaries and food prices).
