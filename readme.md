@@ -1,5 +1,7 @@
 # SQL PROJECT
 ## FOREWORD
+(contact on discord: romanz90)
+
 In addition to this 'README' file containing details of the project, there are also 1-7 SQL scripts in the repository dedicated to this project:
 1. The first script contains a command to create a primary table (data regarding salaries and food prices).
 2. The second script contains a command to create a secondary table (additional data for other European countries).
@@ -88,7 +90,7 @@ Both tables contain a large amount of information, which is further described in
 
 Some codebooks have been used only once: 
 * czechia_payroll_value_type - setting of ' value_type_code' to show only the salary values - code 5958.
-* czechia_payroll_unit - to find out in which units the values in the 'value' column are expressed (for salaries it is Czech crowns).
+* czechia_payroll_unit - to find out in which units the values in the 'value' column are expressed (for salaries it is Czech korunas).
 
 Two tables have been permanently attached: 
 * czechia_price_category - identification of food categories and their quantity units.
@@ -115,7 +117,7 @@ In addition to limiting the records (rows), our effort was also to limit the num
 
 In the 'czechia_price' table it was four columns:
 * information about year - date_from (inserted into the year() function afterwards) 
-* mean foodstuff price - value (afterwards averaged and rounded). Note: it is not clearly defined in what units the food prices are presented here - we assume they are in Czech crowns.
+* mean foodstuff price - value (afterwards averaged and rounded). Note: it is not clearly defined in what units the food prices are presented here - we assume they are in Czech korunas.
 * food category name (from joined codebook 'czechia_price_category') 
 * information about the quantity for which the prices are valid - created by concatenating the 'price_value' and 'price_unit' (from the 'czechia_price_category' codebook) columns via the concat() function.
 
