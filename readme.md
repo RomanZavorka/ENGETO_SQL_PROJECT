@@ -1,20 +1,4 @@
 # SQL PROJECT
-## FOREWORD
-(Name on Discord: romanz90)
-
-In addition to this 'README' file containing details of the project, there are also 1-7 SQL scripts in the repository dedicated to this project:
-1. The first script contains a command to create a primary table (data regarding salaries and food prices).
-2. The second script contains a command to create a secondary table (additional data for other European countries).
-
-The remaining 5 scripts contain a command to display the result table to answer research questions, while SQL script number 3 instructs to display the result table to answer question number 1, SQL script number 4 for question number 2 and so on.
-
-Keep in mind that in order to display the results of SQL scripts 3-7, it is first necessary to create primary and secondary tables through SQL scripts 1 and 2, as they contain the necessary data for the results to be displayed (see the project assignment).
-
-This document is divided into the following four main sections, which are further subdivided into subsections:
-* Assignment: project assignment.
-* Analysis: a brief description of the input data for the creation of the primary table, the process and obstacles during the creation and a short description of the resulting table. 
-* Procedure: detailed description of creation of individual SQL scripts, including intermediate results and explanation of individual steps and description of the final output.
-* Results: description of results and answers to research questions.
 ## ASSIGNMENT
 ### INTRODUCTION TO THE PROJECT
 At your analytical department of an independent company that focuses on the standard of living of citizens, you have agreed to try to answer a few defined research questions that address the availability of basic foodstuffs to the general public. Colleagues have already defined the basic questions they will try to answer and provide this information to the press department. This department will present the results at the next conference focusing on this field.
