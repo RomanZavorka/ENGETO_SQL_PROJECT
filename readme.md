@@ -1,6 +1,6 @@
 # SQL PROJECT
 ## FOREWORD
-In the repository appendix there are 7 SQL scripts numbered 1-7:
+In this repository there are 7 SQL scripts numbered 1-7:
 * Script 1 and 2 instruct the creation of primary and secondary tables that contain data extracted from the given database for needs of this project.
 * The remaining scripts link to the tables created above and display the data needed to answer questions 1-5 (script 3 -> question 1, script 4 -> question 2, etc.).
 
