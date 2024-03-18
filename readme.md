@@ -1,4 +1,14 @@
 # SQL PROJECT
+# FOREWORD
+In the repository appendix there are 7 SQL scripts numbered 1-7:
+* Scripts 1 and 2 instruct the creation of primary and secondary tables that contain modified data extracted from the database.
+* The remaining scripts link to the tables created above and display the data needed to answer questions 1-5 (script 3 -> question 1, script 4 -> question 2, etc.).
+
+This document is divided into the following four main sections, which are further subdivided into subsections:
+* Assignment: project assignment.
+* Analysis: a brief description of the input data for the creation of the primary table, the process and obstacles during the creation and a short description of the resulting table. 
+* Procedure: detailed description of creation of individual SQL scripts, including intermediate results and explanation of individual steps and description of the final output.
+* Results: description of results and answers to research questions.
 ## ASSIGNMENT
 ### INTRODUCTION TO THE PROJECT
 At your analytical department of an independent company that focuses on the standard of living of citizens, you have agreed to try to answer a few defined research questions that address the availability of basic foodstuffs to the general public. Colleagues have already defined the basic questions they will try to answer and provide this information to the press department. This department will present the results at the next conference focusing on this field.
